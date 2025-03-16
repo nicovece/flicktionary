@@ -1,0 +1,24 @@
+{
+  "name": "flicktionary",
+  "version": "0.0.0",
+  "description": "A dictionary, but only for flicks. The server-side component of a “movies” web application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicovece/flicktionary.git"
+  },
+  "author": "Nico Vece",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicovece/flicktionary/issues"
+  },
+  "homepage": "https://github.com/nicovece/flicktionary#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2"
+  }
+}
