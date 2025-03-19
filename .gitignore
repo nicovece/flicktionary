@@ -3,3 +3,4 @@ node_modules/
 # Ignore personal configuration files
 .eslintrc
 .prettierrc
+index.min.js

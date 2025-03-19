@@ -1,35 +1,54 @@
-const express = require("express");
+const express = require('express'),
+  morgan = require('morgan'),
+  fs = require('fs'),
+  path = require('path');
+
 const app = express();
 
-let topBooks = [
+// log all requests to log.txt
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
+  flags: 'a'
+});
+
+// Middleware
+//
+// log all requests to log.txt
+app.use(morgan('combined', { stream: accessLogStream }));
+
+// Sample data - 10 movies
+const topMovies = [
+  { title: 'Inception', year: 2010, director: 'Christopher Nolan' },
+  { title: 'The Dark Knight', year: 2008, director: 'Christopher Nolan' },
+  { title: 'Pulp Fiction', year: 1994, director: 'Quentin Tarantino' },
+  { title: 'The Matrix', year: 1999, director: 'Lana & Lilly Wachowski' },
+  { title: 'The Shawshank Redemption', year: 1994, director: 'Frank Darabont' },
+  { title: 'Fight Club', year: 1999, director: 'David Fincher' },
+  { title: 'Interstellar', year: 2014, director: 'Christopher Nolan' },
+  { title: 'Forrest Gump', year: 1994, director: 'Robert Zemeckis' },
   {
-    title: "Harry Potter and the Sorcerer's Stone",
-    author: "J.K. Rowling"
+    title: 'The Lord of the Rings: The Return of the King',
+    year: 2003,
+    director: 'Peter Jackson'
   },
-  {
-    title: "Lord of the Rings",
-    author: "J.R.R. Tolkien"
-  },
-  {
-    title: "Twilight",
-    author: "Stephanie Meyer"
-  }
+  { title: 'Gladiator', year: 2000, director: 'Ridley Scott' }
 ];
 
 // GET requests
-app.get("/", (req, res) => {
-  res.send("Welcome to my book club!");
+app.get('/', (req, res) => {
+  let title = '<h1>F L I C K T I O N A R Y</h1>';
+  let description = '<h2>A dictionary, but only for flicks.</h2>';
+  res.send(title + description);
 });
 
-app.get("/documentation", (req, res) => {
-  res.sendFile("public/documentation.html", { root: __dirname });
-});
+// app.get("/documentation", (req, res) => {
+//   res.sendFile("public/documentation.html", { root: __dirname });
+// });
 
-app.get("/books", (req, res) => {
-  res.json(topBooks);
+app.get('/movies', (req, res) => {
+  res.json(topMovies);
 });
 
 // listen for requests
 app.listen(8080, () => {
-  console.log("Your app is listening on port 8080.");
+  console.log('Your app is listening on port 8080.');
 });
