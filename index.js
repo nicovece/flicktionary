@@ -17,20 +17,61 @@ app.use(morgan('combined', { stream: accessLogStream }));
 
 // Sample data - 10 movies
 const topMovies = [
-  { title: 'Inception', year: 2010, director: 'Christopher Nolan' },
+  {
+    title: 'Inception',
+    year: 2010,
+    director: 'Christopher Nolan',
+    genre: 'Action, Adventure, Sci-Fi'
+  },
   { title: 'The Dark Knight', year: 2008, director: 'Christopher Nolan' },
-  { title: 'Pulp Fiction', year: 1994, director: 'Quentin Tarantino' },
-  { title: 'The Matrix', year: 1999, director: 'Lana & Lilly Wachowski' },
-  { title: 'The Shawshank Redemption', year: 1994, director: 'Frank Darabont' },
-  { title: 'Fight Club', year: 1999, director: 'David Fincher' },
-  { title: 'Interstellar', year: 2014, director: 'Christopher Nolan' },
-  { title: 'Forrest Gump', year: 1994, director: 'Robert Zemeckis' },
+  {
+    title: 'Pulp Fiction',
+    year: 1994,
+    director: 'Quentin Tarantino',
+    genre: 'Crime, Drama'
+  },
+  {
+    title: 'The Matrix',
+    year: 1999,
+    director: 'Lana & Lilly Wachowski',
+    genre: 'Action, Sci-Fi'
+  },
+  {
+    title: 'The Shawshank Redemption',
+    year: 1994,
+    director: 'Frank Darabont',
+    genre: 'Drama'
+  },
+  {
+    title: 'Fight Club',
+    year: 1999,
+    director: 'David Fincher',
+    genre: 'Drama'
+  },
+  {
+    title: 'Interstellar',
+    year: 2014,
+    director: 'Christopher Nolan',
+    genre: 'Adventure Drama, Sci-Fi'
+  },
+  {
+    title: 'Forrest Gump',
+    year: 1994,
+    director: 'Robert Zemeckis',
+    genre: 'Drama, Romance'
+  },
   {
     title: 'The Lord of the Rings: The Return of the King',
     year: 2003,
-    director: 'Peter Jackson'
+    director: 'Peter Jackson',
+    genre: 'Action, Adventure, Drama'
   },
-  { title: 'Gladiator', year: 2000, director: 'Ridley Scott' }
+  {
+    title: 'Gladiator',
+    year: 2000,
+    director: 'Ridley Scott',
+    genre: 'Action, Adventure, Drama'
+  }
 ];
 
 // GET requests
