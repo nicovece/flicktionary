@@ -11,9 +11,18 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
 });
 
 // Middleware
-//
+
 // log all requests to log.txt
 app.use(morgan('combined', { stream: accessLogStream }));
+
+// serve static files
+app.use(express.static('public'));
+
+// error handling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('We have a problem, something gone wrong!');
+});
 
 // Sample data - 10 movies
 const topMovies = [
