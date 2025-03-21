@@ -6,7 +6,6 @@ const express = require('express'),
   uuid = require('uuid');
 
 const app = express();
-app.use(bodyParser.json());
 
 // log all requests to log.txt
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
@@ -78,6 +77,9 @@ app.use(morgan('combined', { stream: accessLogStream }));
 // serve static files
 app.use(express.static('public'));
 
+// parse request body
+app.use(bodyParser.json());
+
 // error handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -85,14 +87,53 @@ app.use((err, req, res, next) => {
 });
 
 // GET requests
+
+// Root page
 app.get('/', (req, res) => {
   let title = '<h1>F L I C K T I O N A R Y</h1>';
   let description = '<h2>A dictionary, but only for flicks.</h2>';
   res.send(title + description);
 });
 
+// Get all movies
 app.get('/movies', (req, res) => {
   res.json(movies);
+});
+
+// Get movie by title
+app.get('/movies/:title', (req, res) => {
+  let movie = movies.find((movie) => movie.Title === req.params.title);
+  if (movie) {
+    res.status(200).json(movie);
+  } else {
+    res.status(404).send('Movie named "' + req.params.title + '" not found.');
+  }
+});
+
+// Get movie genre by name
+app.get('/movies/genre/:genreName', (req, res) => {
+  let genre = movies.find((movie) => movie.Genre.Name === req.params.genreName);
+  if (genre) {
+    res.status(200).send(req.params.genreName + ' genre description');
+  } else {
+    res
+      .status(404)
+      .send('Genre named "' + req.params.genreName + '" not found.');
+  }
+});
+
+// Get movie director by name
+app.get('/movies/director/:directorName', (req, res) => {
+  let director = movies.find(
+    (movie) => movie.Director.Name === req.params.directorName
+  );
+  if (director) {
+    res.status(200).send(req.params.directorName + ' director description');
+  } else {
+    res
+      .status(404)
+      .send('Director named "' + req.params.directorName + '" not found.');
+  }
 });
 
 // listen for requests
