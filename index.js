@@ -6,6 +6,7 @@ const express = require('express'),
   uuid = require('uuid');
 
 const app = express();
+app.use(bodyParser.json());
 
 // log all requests to log.txt
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
