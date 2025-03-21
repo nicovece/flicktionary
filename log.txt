@@ -22,3 +22,5 @@
 ::ffff:127.0.0.1 - - [19/Mar/2025:20:19:14 +0000] "GET /movies HTTP/1.1" 200 951 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0"
 ::ffff:127.0.0.1 - - [19/Mar/2025:20:19:14 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:8080/movies" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0"
 ::ffff:127.0.0.1 - - [19/Mar/2025:20:35:07 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:8080/movies" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0"
+::ffff:127.0.0.1 - - [21/Mar/2025:17:56:38 +0000] "GET / HTTP/1.1" 200 75 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0"
+::ffff:127.0.0.1 - - [21/Mar/2025:17:56:47 +0000] "GET /documentation HTTP/1.1" 404 152 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0"
