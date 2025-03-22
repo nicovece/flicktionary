@@ -85,16 +85,18 @@
     </h1>
 
     <h1>F L I C K T I O N A R Y</h1>
-    <h2>Documentation</h2>
+    <h2>API Documentation</h2>
   </header>
   <main>
-    <p>
-      Welcome to the Flicktionary documentation. Here you will find all the
-      information you need to interact with the API. Flicktionary API allows users to explore information about
-      movies. Users can sign up, update their personal details, and curate lists of their favorite films.
-      Additionally, they can search the movie
-      database using filters such as movie title, genre, actor name, and more.
-    </p>
+    <section class="description">
+      <p>
+        Welcome to the Flicktionary documentation. Here you will find all the
+        information you need to interact with the API. Flicktionary API allows users to explore information about
+        movies. Users can sign up, update their personal details, and curate lists of their favorite films.
+        Additionally, they can search the movie
+        database using filters such as movie title, genre, actor name, and more.
+      </p>
+    </section>
 
     <table role="table">
       <thead role="rowgroup">
@@ -109,7 +111,256 @@
       </thead>
       <tbody role="rowgroup">
         <tr role="row">
-          <td role="cell" data-label="Business Logic">James</td>
+          <td role="cell" data-label="Business Logic">Return a list of ALL movies</td>
+          <td role="cell" data-label="URL">/movies</td>
+          <td role="cell" data-label="HTTP Method">GET</td>
+          <td role="cell" data-label="Query Parameters">None</td>
+          <td role="cell" data-label="Request body data format">None</td>
+          <td role="cell" data-label="Response body data format">A JSON object holding data
+            about all the movies
+            <pre>Status: 200 OK</pre>
+            <pre>Content-Type: application/json</pre>
+            <pre class="code-block">
+Example:
+[
+  {
+    "Title": "Iron Man 2",
+    "Description": "...",
+    "Genre": {
+      "Name": "Sci-fi",
+      "Description": "..."
+    },
+    "Director": {
+      "Name": "John Favreau",
+      "Bio": "...",
+      "Birth": "October 19, 1966"
+    },
+    "ImageURL": "..."
+  },
+  ...
+]
+            </pre>
+          </td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Business Logic">Returns data about a single movie by title.</td>
+          <td role="cell" data-label="URL">/movies/:title</td>
+          <td role="cell" data-label="HTTP Method">GET</td>
+          <td role="cell" data-label="Query Parameters">title (string)<br>The title of the movie</td>
+          <td role="cell" data-label="Request body data format">None</td>
+          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+            <pre>Status: 200 OK</pre>
+            <pre>Content-Type: application/json</pre>
+            <pre class="code-block">
+Example:
+{
+  "Title": "John Wick",
+  "Description": "John Wick is a ...",
+  "Genre": {
+      "Name": "Action",
+      "Description": "Action films are ..."
+  },
+  "Director": {
+      "Name": "Chad Stahelski",
+      "Bio": "Chad Stahelski is an ...",
+      "Birth": "September 20, 1968"
+  },
+  "ImageURL": "..."
+}
+            </pre>
+          </td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Business Logic">Returns data about a genre by name.</td>
+          <td role="cell" data-label="URL">/movies/genre/:genreName</td>
+          <td role="cell" data-label="HTTP Method">GET</td>
+          <td role="cell" data-label="Query Parameters">genreName (string)<br>The name of the genre</td>
+          <td role="cell" data-label="Request body data format">None</td>
+          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+            <pre>Status: 200 OK</pre>
+            <pre>Content-Type: application/json</pre>
+            <pre class="code-block">
+Example:
+{
+"Name": "Sci-fi",
+  "Description": "..."
+}
+            </pre>
+          </td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Business Logic">Returns data about a director by name.</td>
+          <td role="cell" data-label="URL">/movies/director/:directorName</td>
+          <td role="cell" data-label="HTTP Method">GET</td>
+          <td role="cell" data-label="Query Parameters">directorName (string)<br>The name of the director</td>
+          <td role="cell" data-label="Request body data format">None</td>
+          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+            <pre>Status: 200 OK</pre>
+            <pre>Content-Type: application/json</pre>
+            <pre class="code-block">
+Example:
+{
+  "Name": "John Favreau",
+  "Bio": "...",
+  "Birth": "October 19, 1966"
+}
+            </pre>
+          </td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Business Logic">Returns a list of all users.</td>
+          <td role="cell" data-label="URL">/users</td>
+          <td role="cell" data-label="HTTP Method">GET</td>
+          <td role="cell" data-label="Query Parameters">None</td>
+          <td role="cell" data-label="Request body data format">None</td>
+          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+            <pre>Status: 200 OK</pre>
+            <pre>Content-Type: application/json</pre>
+            <pre class="code-block">
+Example:
+[
+  {
+    "id": 1,
+    "name": "Paul",
+    "favoriteMovies": []
+  },
+  {
+    "id": 2,
+    "name": "Nico",
+    "favoriteMovies": ["John Wick"]
+  }
+]
+            </pre>
+          </td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Business Logic">Returns data about a single user by ID.</td>
+          <td role="cell" data-label="URL">/users/:id</td>
+          <td role="cell" data-label="HTTP Method">GET</td>
+          <td role="cell" data-label="Query Parameters">id (number)<br>The ID of the user</td>
+          <td role="cell" data-label="Request body data format">None</td>
+          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+            <pre>Status: 200 OK</pre>
+            <pre>Content-Type: application/json</pre>
+            <pre class="code-block">
+Example:
+{
+  "id": 1,
+  "name": "Paul",
+  "favoriteMovies": [...]
+}
+            </pre>
+          </td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Business Logic">Allows new users registration.</td>
+          <td role="cell" data-label="URL">/users/</td>
+          <td role="cell" data-label="HTTP Method">POST</td>
+          <td role="cell" data-label="Query Parameters">None</td>
+          <td role="cell" data-label="Request body data format">
+            <pre class="code-block">
+Example:
+{
+  "name": "Paul"
+}
+            </pre>
+          </td>
+          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+            <pre>Status: 200 OK</pre>
+            <pre>Content-Type: application/json</pre>
+            <pre class="code-block">
+Example:
+{
+  "id": "generated-uuid",
+  "name": "Paul",
+  "favoriteMovies": []
+}
+            </pre>
+          </td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Business Logic">Allows users to update their user info.</td>
+          <td role="cell" data-label="URL">/users/:id</td>
+          <td role="cell" data-label="HTTP Method">PUT</td>
+          <td role="cell" data-label="Query Parameters">id (number)<br>The ID of the user</td>
+          <td role="cell" data-label="Request body data format">
+            <pre class="code-block">
+Example:
+{
+  "name": "John"
+}
+            </pre>
+          </td>
+          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+            <pre>Status: 200 OK</pre>
+            <pre>Content-Type: application/json</pre>
+            <pre class="code-block">
+Example:
+{
+  "id": "ef6e90f4-d992-4000- ...",
+  "name": "John",
+  "favoriteMovies": [...]
+}
+            </pre>
+          </td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Business Logic">Allows users to add a movie to their list of favorites.</td>
+          <td role="cell" data-label="URL">/users/:id/:movieTitle</td>
+          <td role="cell" data-label="HTTP Method">PUT</td>
+          <td role="cell" data-label="Query Parameters">
+            <p>id (number)<br>The ID of the user.</p>
+            <p>movieTitle (string)<br>The title of the movie.</p>
+          </td>
+          <td role="cell" data-label="Request body data format">
+            <pre class="code-block">
+Example:
+{
+  "name": "John"
+}
+            </pre>
+          </td>
+          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+            <pre>Status: 200 OK</pre>
+            <pre>Content-Type: text/plain</pre>
+            <pre class="code-block">
+Example:
+John Wick has been added to user 2 favs list
+            </pre>
+          </td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Business Logic">Allows users to remove a movie from their list of favorites.</td>
+          <td role="cell" data-label="URL">/users/:id/:movieTitle</td>
+          <td role="cell" data-label="HTTP Method">DELETE</td>
+          <td role="cell" data-label="Query Parameters">
+            <p>id (number)<br>The ID of the user.</p>
+            <p>movieTitle (string)<br>The title of the movie.</p>
+          </td>
+          <td role="cell" data-label="Request body data format">None</td>
+          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+            <pre>Status: 200 OK</pre>
+            <pre>Content-Type: text/plain</pre>
+            <pre class="code-block">
+Example:
+John Wick has been removed from user 2's list
+            </pre>
+          </td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Business Logic">Allows existing users to deregister.</td>
+          <td role="cell" data-label="URL">/users/:id</td>
+          <td role="cell" data-label="HTTP Method">DELETE</td>
+          <td role="cell" data-label="Query Parameters">id (number)<br>The ID of the user.</td>
+          <td role="cell" data-label="Request body data format">None</td>
+          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+            <pre>Status: 200 OK</pre>
+            <pre>Content-Type: text/plain</pre>
+            <pre class="code-block">
+Example:
+John Wick has been removed from user 2's list
+            </pre>
+          </td>
         </tr>
       </tbody>
     </table>

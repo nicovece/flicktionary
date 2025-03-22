@@ -102,9 +102,10 @@ app.use((err, req, res, next) => {
 
 // Root page
 app.get('/', (req, res) => {
-  const title = '<h1>F L I C K T I O N A R Y</h1>';
-  const description = '<h2>A dictionary, but only for flicks.</h2>';
-  res.send(title + description);
+  // const title = '<h1>F L I C K T I O N A R Y</h1>';
+  // const description = '<h2>A dictionary, but only for flicks.</h2>';
+  // res.send(title + description);
+  res.sendFile('public/index.html', { root: __dirname });
 });
 
 // Movies endpoints
@@ -227,7 +228,7 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
 // Allow existing users to deregister
 app.delete('/users/:id', (req, res) => {
   const { id } = req.params;
-  const user = users.find((user) => user.id == id);
+  let user = users.find((user) => user.id == id);
   if (user) {
     users = users.filter((user) => user.id != id);
     res.status(200).send('User ' + id + ' has been deleted.');
