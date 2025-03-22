@@ -116,8 +116,8 @@
           <td role="cell" data-label="HTTP Method">GET</td>
           <td role="cell" data-label="Query Parameters">None</td>
           <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">A JSON object holding data
-            about all the movies
+          <td role="cell" data-label="Response body data format">
+            <p>A JSON object holding data about all the movies</p>
             <pre>Status: 200 OK</pre>
             <pre>Content-Type: application/json</pre>
             <pre class="code-block">
@@ -146,9 +146,10 @@ Example:
           <td role="cell" data-label="Business Logic">Returns data about a single movie by title.</td>
           <td role="cell" data-label="URL">/movies/:title</td>
           <td role="cell" data-label="HTTP Method">GET</td>
-          <td role="cell" data-label="Query Parameters">title (string)<br>The title of the movie</td>
+          <td role="cell" data-label="Query Parameters">title (string)<br><i>The title of the movie</i></td>
           <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+          <td role="cell" data-label="Response body data format">
+            <p>A JSON object holding data about a single movie.</p>
             <pre>Status: 200 OK</pre>
             <pre>Content-Type: application/json</pre>
             <pre class="code-block">
@@ -174,9 +175,10 @@ Example:
           <td role="cell" data-label="Business Logic">Returns data about a genre by name.</td>
           <td role="cell" data-label="URL">/movies/genre/:genreName</td>
           <td role="cell" data-label="HTTP Method">GET</td>
-          <td role="cell" data-label="Query Parameters">genreName (string)<br>The name of the genre</td>
+          <td role="cell" data-label="Query Parameters">genreName (string)<br><i>The name of the genre</i></td>
           <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+          <td role="cell" data-label="Response body data format">
+            <p>A JSON object holding data about a single genre.</p>
             <pre>Status: 200 OK</pre>
             <pre>Content-Type: application/json</pre>
             <pre class="code-block">
@@ -192,9 +194,10 @@ Example:
           <td role="cell" data-label="Business Logic">Returns data about a director by name.</td>
           <td role="cell" data-label="URL">/movies/director/:directorName</td>
           <td role="cell" data-label="HTTP Method">GET</td>
-          <td role="cell" data-label="Query Parameters">directorName (string)<br>The name of the director</td>
+          <td role="cell" data-label="Query Parameters">directorName (string)<br><i>The name of the director</i></td>
           <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+          <td role="cell" data-label="Response body data format">
+            <p>A JSON object holding data about a single movie.</p>
             <pre>Status: 200 OK</pre>
             <pre>Content-Type: application/json</pre>
             <pre class="code-block">
@@ -214,6 +217,7 @@ Example:
           <td role="cell" data-label="Query Parameters">None</td>
           <td role="cell" data-label="Request body data format">None</td>
           <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+            <p>A JSON object holding data about all the users.</p>
             <pre>Status: 200 OK</pre>
             <pre>Content-Type: application/json</pre>
             <pre class="code-block">
@@ -237,9 +241,10 @@ Example:
           <td role="cell" data-label="Business Logic">Returns data about a single user by ID.</td>
           <td role="cell" data-label="URL">/users/:id</td>
           <td role="cell" data-label="HTTP Method">GET</td>
-          <td role="cell" data-label="Query Parameters">id (number)<br>The ID of the user</td>
+          <td role="cell" data-label="Query Parameters">id (number)<br><i>The ID of the user</i></td>
           <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+          <td role="cell" data-label="Response body data format">
+            <p>A JSON object holding data about a single user.</p>
             <pre>Status: 200 OK</pre>
             <pre>Content-Type: application/json</pre>
             <pre class="code-block">
@@ -265,7 +270,8 @@ Example:
 }
             </pre>
           </td>
-          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+          <td role="cell" data-label="Response body data format">
+            <p>A JSON object holding data about the created user.</p>
             <pre>Status: 200 OK</pre>
             <pre>Content-Type: application/json</pre>
             <pre class="code-block">
@@ -282,7 +288,7 @@ Example:
           <td role="cell" data-label="Business Logic">Allows users to update their user info.</td>
           <td role="cell" data-label="URL">/users/:id</td>
           <td role="cell" data-label="HTTP Method">PUT</td>
-          <td role="cell" data-label="Query Parameters">id (number)<br>The ID of the user</td>
+          <td role="cell" data-label="Query Parameters">id (number)<br><i>The ID of the user</i></td>
           <td role="cell" data-label="Request body data format">
             <pre class="code-block">
 Example:
@@ -291,7 +297,8 @@ Example:
 }
             </pre>
           </td>
-          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+          <td role="cell" data-label="Response body data format">
+            <p>A JSON object holding data about the updated user.</p>
             <pre>Status: 200 OK</pre>
             <pre>Content-Type: application/json</pre>
             <pre class="code-block">
@@ -309,8 +316,8 @@ Example:
           <td role="cell" data-label="URL">/users/:id/:movieTitle</td>
           <td role="cell" data-label="HTTP Method">PUT</td>
           <td role="cell" data-label="Query Parameters">
-            <p>id (number)<br>The ID of the user.</p>
-            <p>movieTitle (string)<br>The title of the movie.</p>
+            <p>id (number)<br><i>The ID of the user.</i></p>
+            <p>movieTitle (string)<br><i>The title of the movie.</i></p>
           </td>
           <td role="cell" data-label="Request body data format">
             <pre class="code-block">
@@ -320,7 +327,8 @@ Example:
 }
             </pre>
           </td>
-          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+          <td role="cell" data-label="Response body data format">
+            <p>A message confirming the movie has been added to the user's list of favorites.</p>
             <pre>Status: 200 OK</pre>
             <pre>Content-Type: text/plain</pre>
             <pre class="code-block">
@@ -333,12 +341,13 @@ John Wick has been added to user 2 favs list
           <td role="cell" data-label="Business Logic">Allows users to remove a movie from their list of favorites.</td>
           <td role="cell" data-label="URL">/users/:id/:movieTitle</td>
           <td role="cell" data-label="HTTP Method">DELETE</td>
-          <td role="cell" data-label="Query Parameters">
-            <p>id (number)<br>The ID of the user.</p>
-            <p>movieTitle (string)<br>The title of the movie.</p>
+          <td role="cell" data-label="Path Parameters">
+            <p>id (number)<br><i>The ID of the user.</i></p>
+            <p>movieTitle (string)<br><i>The title of the movie.</i></p>
           </td>
           <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+          <td role="cell" data-label="Response body data format">
+            <p>A message confirming the movie has been removed from the user's list of favorites.</p>
             <pre>Status: 200 OK</pre>
             <pre>Content-Type: text/plain</pre>
             <pre class="code-block">
@@ -351,14 +360,15 @@ John Wick has been removed from user 2's list
           <td role="cell" data-label="Business Logic">Allows existing users to deregister.</td>
           <td role="cell" data-label="URL">/users/:id</td>
           <td role="cell" data-label="HTTP Method">DELETE</td>
-          <td role="cell" data-label="Query Parameters">id (number)<br>The ID of the user.</td>
+          <td role="cell" data-label="Path Parameters">id (number)<br><i>The ID of the user.</i></td>
           <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
+          <td role="cell" data-label="Response body data format">
+            <p>A message confirming the user has been removed.</p>
             <pre>Status: 200 OK</pre>
             <pre>Content-Type: text/plain</pre>
             <pre class="code-block">
 Example:
-John Wick has been removed from user 2's list
+User with ID: 2 successfully removed
             </pre>
           </td>
         </tr>

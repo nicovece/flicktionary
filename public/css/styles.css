@@ -83,6 +83,7 @@ thead {
 th {
   padding: 0 1em 1.5em 1em;
   font-weight: normal;
+  color: hsl(270, 50%, 70%);
 }
 
 td {
@@ -133,23 +134,25 @@ table td pre:only-child {
   }
 
   td {
-    /* Behave  like a "row" */
+    padding: 1.5em 1em;
     border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50%;
+    border-top: 1px dashed hsl(270, 50%, 30%);
+  }
+
+  td:first-child {
+    padding-top: 3em;
+    border-top: 1px dashed hsl(270, 50%, 80%);
   }
 
   td:before {
+    display: block;
     content: attr(data-label);
-    /* Now like a table header */
-    position: absolute;
-    /* Top/left values mimic padding */
-    top: 0;
-    left: 6px;
-    width: 45%;
-    padding-right: 10px;
+    margin-bottom: 0.5em;
+    color: hsl(270, 50%, 70%);
     white-space: nowrap;
+  }
+  table td pre {
+    white-space: break-spaces;
   }
 }
 
