@@ -2,9 +2,8 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  justify-content: center;
   margin: 0;
-  padding: 0 10vw;
+  padding: 5vh 10vw;
   background-color: hsl(270, 50%, 5%);
   font-family: Arial, sans-serif;
   color: hsl(270, 50%, 75%);
@@ -12,11 +11,19 @@ body {
   line-height: 1.5;
 }
 
+body.homepage {
+  justify-content: center;
+  padding: 0 10vw;
+}
+
 header,
 main,
 footer {
   display: flex;
   flex-direction: column;
+}
+
+section.description {
   max-width: 1280px;
 }
 
@@ -45,6 +52,10 @@ h3 {
   color: hsl(270, 50%, 70%);
 }
 
+body.homepage .flicktionary__logo {
+  font-size: clamp(0.1rem, 2.5vw, 0.4rem);
+}
+
 .sr-only {
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
@@ -64,6 +75,38 @@ table {
   color: #fff;
   text-align: left;
 }
+
+thead {
+  font-size: 1rem;
+}
+
+th {
+  padding: 0 1em 1.5em 1em;
+  font-weight: normal;
+}
+
+td {
+  padding: 1.5em 1em 0.5em 1em;
+  border-top: 1px solid hsl(270, 50%, 30%);
+}
+
+td,
+th {
+  vertical-align: top;
+}
+
+table td p {
+  margin: 0 0 1em 0;
+}
+table td pre {
+  margin: 1em 0 0 0;
+  font-size: 0.875rem;
+}
+
+table td pre:only-child {
+  margin: 0;
+}
+
 @media only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 1024px) {
   /* Force table to not be like tables anymore */
@@ -87,7 +130,6 @@ table {
   }
 
   tr:nth-child(odd) {
-    background: #ccc;
   }
 
   td {
