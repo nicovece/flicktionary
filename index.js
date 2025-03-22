@@ -33,10 +33,14 @@ let movies = [
     Description:
       'With the world now aware that he is Iron Man, billionaire inventor Tony Stark (Robert Downey Jr.) faces pressure from all sides to share his technology with the military. He is reluctant to divulge the secrets of his armored suit, fearing the information will fall into the wrong hands. With Pepper Potts (Gwyneth Paltrow) and Rhodey (Don Cheadle) by his side, Tony must forge new alliances and confront a powerful new enemy.',
     Genre: {
-      Name: 'Sci-fi'
+      Name: 'Sci-fi',
+      Description:
+        'Science fiction is a genre of speculative fiction that typically deals with imaginative and futuristic concepts such as advanced science and technology, space exploration, time travel, parallel universes, and extraterrestrial life.'
     },
     Director: {
-      Name: 'John Favreau'
+      Name: 'John Favreau',
+      Bio: 'Jonathan Kolia Favreau is an American actor and filmmaker. As an actor, Favreau has appeared in films such as Rudy, PCU, Swingers, Very Bad Things, Deep Impact, The Replacements, Daredevil, The Break-Up, Four Christmases, Couples Retreat, I Love You, Man, People Like Us, The Wolf of Wall Street, and Chef. ',
+      Birth: 'October 19, 1966'
     },
     ImageURL:
       'https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p3546118_p_v10_af.jpg'
@@ -46,10 +50,14 @@ let movies = [
     Description:
       'After the cataclysmic events in New York with his fellow Avengers, Steve Rogers, aka Captain America (Chris Evans), lives in the nation\'s capital as he tries to adjust to modern times. An attack on a S.H.I.E.L.D. colleague throws Rogers into a web of intrigue that places the whole world at risk. Joining forces with the Black Widow (Scarlett Johansson) and a new ally, the Falcon, Rogers struggles to expose an ever-widening conspiracy, but he and his team soon come up against an unexpected enemy.',
     Genre: {
-      Name: 'Adventure'
+      Name: 'Adventure',
+      Description:
+        'Adventure films are a genre of film that typically use their action scenes to display and explore exotic locations in an energetic way.'
     },
     Director: {
-      Name: 'Joe & Anthony Russo'
+      Name: 'Joe & Anthony Russo',
+      Bio: 'Anthony Russo is an American film director and producer. He is best known for directing four installments of the Marvel Cinematic Universe franchise, Captain America: The Winter Soldier, Captain America: Civil War, Avengers: Infinity War, and Avengers: Endgame.',
+      Birth: 'February 3, 1970'
     },
     ImageURL:
       'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTfP_GN63NrHEjZ4unvJbGE7neVs5W_6SlUmYHscaXhUSHMkce3eYBL8eiDbwRt4e0oCv0n'
@@ -59,10 +67,14 @@ let movies = [
     Description:
       'John Wick is a former hitman grieving the loss of his true love. When his home is broken into, robbed, and his dog killed, he is forced to return to action to exact revenge.',
     Genre: {
-      Name: 'Action'
+      Name: 'Action',
+      Description:
+        'Action films are a film genre where the primary emphasis is on the action. These films are characterized by a lot of physical activity (stunts, chases, fights, battles and explosions).'
     },
     Director: {
-      Name: 'Chad Stahelski'
+      Name: 'Chad Stahelski',
+      Bio: 'Chad Stahelski is an American stuntman and film director. He is known for directing the 2014 film John Wick along with David Leitch, and solo directing its two sequels.',
+      Birth: 'September 20, 1968'
     },
     ImageURL:
       'https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg'
@@ -116,9 +128,10 @@ app.get('/movies/:title', (req, res) => {
 // Return data about a genre
 app.get('/movies/genre/:genreName', (req, res) => {
   const { genreName } = req.params;
-  const genre = movies.find((movie) => movie.Genre.Name === genreName);
+  const genre = movies.find((movie) => movie.Genre.Name === genreName).Genre;
   if (genre) {
-    res.status(200).send(genreName + ' genre description');
+    // res.status(200).send(genreName + ' genre description');
+    res.status(200).json(genre);
   } else {
     res.status(404).send('Genre named "' + genreName + '" not found.');
   }
@@ -127,9 +140,11 @@ app.get('/movies/genre/:genreName', (req, res) => {
 // Return data about a director
 app.get('/movies/director/:directorName', (req, res) => {
   const { directorName } = req.params;
-  const director = movies.find((movie) => movie.Director.Name === directorName);
+  const director = movies.find(
+    (movie) => movie.Director.Name === directorName
+  ).Director;
   if (director) {
-    res.status(200).send(directorName + ' director description');
+    res.status(200).json(director);
   } else {
     res.status(404).send('Director named "' + directorName + '" not found.');
   }
