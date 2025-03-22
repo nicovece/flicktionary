@@ -4,69 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="./css/styles.min.css" rel="stylesheet" type="text/css" />
   <title>F L I C K T I O N A R Y - A dictionary for flicks</title>
   <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      justify-content: center;
-      margin: 0;
-      padding: 0 10vw;
-      background-color: hsl(270, 50%, 5%);
-      font-family: Arial, sans-serif;
-      color: hsl(270, 50%, 75%);
-      font-size: 1.125rem;
-      line-height: 1.5;
-    }
 
-    header,
-    main,
-    footer {
-      display: flex;
-      flex-direction: column;
-      max-width: 900px;
-    }
-
-    a,
-    h1 {
-      color: hsl(270, 50%, 90%);
-    }
-
-    h1 {
-      margin: 0 0 2em 0;
-      font-size: 1.8rem;
-      font-weight: normal;
-    }
-
-    h2,
-    h3 {
-      margin: 0 0 0.5em 0;
-      font-size: 1.5rem;
-      font-weight: normal;
-    }
-
-    .flicktionary__logo {
-      width: min-content;
-      margin: 0 0 3rem 0;
-      font-size: 0.2rem;
-      color: hsl(270, 50%, 70%);
-    }
-
-    .sr-only {
-      clip: rect(1px, 1px, 1px, 1px);
-      clip-path: inset(50%);
-      height: 1px;
-      width: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-    }
-
-    footer {
-      color: hsl(270, 50%, 60%);
-    }
   </style>
 </head>
 
@@ -154,6 +95,24 @@
       Additionally, they can search the movie
       database using filters such as movie title, genre, actor name, and more.
     </p>
+
+    <table role="table">
+      <thead role="rowgroup">
+        <tr role="row">
+          <th role="columnheader">Business Logic</th>
+          <th role="columnheader">URL</th>
+          <th role="columnheader">HTTP Method</th>
+          <th role="columnheader">Query Parameters</th>
+          <th role="columnheader">Request body data format</th>
+          <th role="columnheader">Response body data format</th>
+        </tr>
+      </thead>
+      <tbody role="rowgroup">
+        <tr role="row">
+          <td role="cell" data-label="Business Logic">James</td>
+        </tr>
+      </tbody>
+    </table>
   </main>
   <footer>
     <h5> F L I C K T I O N A R Y - &copy; <span class="currentYear"></span></h5>

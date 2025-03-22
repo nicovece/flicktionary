@@ -183,7 +183,7 @@ app.post('/users', (req, res) => {
 app.put('/users/:id', (req, res) => {
   const { id } = req.params;
   const updatedUser = req.body;
-  const user = users.find((user) => user.id == id);
+  let user = users.find((user) => user.id == id);
   if (user) {
     user.name = updatedUser.name;
     res.status(200).json(user);
@@ -197,7 +197,7 @@ app.put('/users/:id', (req, res) => {
 // Allow users to add a movie to their list of favorites
 app.post('/users/:id/:movieTitle', (req, res) => {
   const { id, movieTitle } = req.params;
-  const user = users.find((user) => user.id == id);
+  let user = users.find((user) => user.id == id);
   if (user) {
     user.favoriteMovies.push(movieTitle);
     res
@@ -211,10 +211,10 @@ app.post('/users/:id/:movieTitle', (req, res) => {
 // Allow users to remove a movie from their list of favorites
 app.delete('/users/:id/:movieTitle', (req, res) => {
   const { id, movieTitle } = req.params;
-  const user = users.find((user) => user.id == id);
+  let user = users.find((user) => user.id == id);
   if (user) {
     user.favoriteMovies = user.favoriteMovies.filter(
-      (movie) => movie !== movieTitle
+      (title) => title !== movieTitle
     );
     res
       .status(200)
