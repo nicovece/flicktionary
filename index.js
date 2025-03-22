@@ -86,7 +86,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('We have a problem, something gone wrong!');
 });
 
-// GET requests
+// Endpoints
 
 // Root page
 app.get('/', (req, res) => {
@@ -95,12 +95,14 @@ app.get('/', (req, res) => {
   res.send(title + description);
 });
 
-// Get all movies
+// Movies endpoints
+
+// Return a list of ALL movies to the user
 app.get('/movies', (req, res) => {
   res.json(movies);
 });
 
-// Get movie by title
+// Return data about a single movie by title to the user
 app.get('/movies/:title', (req, res) => {
   let movie = movies.find((movie) => movie.Title === req.params.title);
   if (movie) {
@@ -110,7 +112,7 @@ app.get('/movies/:title', (req, res) => {
   }
 });
 
-// Get movie genre by name
+// Return data about a genre
 app.get('/movies/genre/:genreName', (req, res) => {
   let genre = movies.find((movie) => movie.Genre.Name === req.params.genreName);
   if (genre) {
@@ -122,7 +124,7 @@ app.get('/movies/genre/:genreName', (req, res) => {
   }
 });
 
-// Get movie director by name
+// Return data about a director
 app.get('/movies/director/:directorName', (req, res) => {
   let director = movies.find(
     (movie) => movie.Director.Name === req.params.directorName
@@ -133,6 +135,104 @@ app.get('/movies/director/:directorName', (req, res) => {
     res
       .status(404)
       .send('Director named "' + req.params.directorName + '" not found.');
+  }
+});
+
+//Users endpoints
+
+// Get all users
+app.get('/users', (req, res) => {
+  res.json(users);
+});
+
+// Get a user by id
+app.get('/users/:id', (req, res) => {
+  let user = users.find((user) => user.id == req.params.id);
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res
+      .status(400)
+      .send('The user with id ' + req.params.id + ' was not found.');
+  }
+});
+
+// Allow new users to register
+app.post('/users', (req, res) => {
+  let newUser = req.body;
+  if (!newUser.name) {
+    return res.status(400).send('Name is required.');
+  }
+  newUser.id = uuid.v4();
+  users.push(newUser);
+  res.status(201).json(newUser);
+});
+
+// Allow users to update their user info
+app.put('/users/:id', (req, res) => {
+  let user = users.find((user) => user.id == req.params.id);
+  if (user) {
+    user.name = req.body.name;
+    res.status(200).json(user);
+  } else {
+    res
+      .status(400)
+      .send('The user with id ' + req.params.id + ' was not found.');
+  }
+});
+
+// Allow users to add a movie to their list of favorites
+app.post('/users/:id/:movieTitle', (req, res) => {
+  let user = users.find((user) => user.id == req.params.id);
+  if (user) {
+    user.favoriteMovies.push(req.params.movieTitle);
+    res
+      .status(200)
+      .send(
+        req.params.movieTitle +
+          ' has been added to user ' +
+          req.params.id +
+          '\'s list'
+      );
+  } else {
+    res
+      .status(400)
+      .send('The user with id ' + req.params.id + ' was not found.');
+  }
+});
+
+// Allow users to remove a movie from their list of favorites
+app.delete('/users/:id/:movieTitle', (req, res) => {
+  let user = users.find((user) => user.id == req.params.id);
+  if (user) {
+    user.favoriteMovies = user.favoriteMovies.filter(
+      (movie) => movie !== req.params.movieTitle
+    );
+    res
+      .status(200)
+      .send(
+        req.params.movieTitle +
+          ' has been removed from user ' +
+          req.params.id +
+          '\'s list'
+      );
+  } else {
+    res
+      .status(400)
+      .send('The user with id ' + req.params.id + ' was not found.');
+  }
+});
+
+// Allow existing users to deregister
+app.delete('/users/:id', (req, res) => {
+  let user = users.find((user) => user.id == req.params.id);
+  if (user) {
+    users = users.filter((user) => user.id != req.params.id);
+    res.status(200).send('User ' + req.params.id + ' has been deleted.');
+  } else {
+    res
+      .status(400)
+      .send('The user with id ' + req.params.id + ' was not found.');
   }
 });
 
