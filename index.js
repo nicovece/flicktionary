@@ -90,8 +90,8 @@ app.use((err, req, res, next) => {
 
 // Root page
 app.get('/', (req, res) => {
-  let title = '<h1>F L I C K T I O N A R Y</h1>';
-  let description = '<h2>A dictionary, but only for flicks.</h2>';
+  const title = '<h1>F L I C K T I O N A R Y</h1>';
+  const description = '<h2>A dictionary, but only for flicks.</h2>';
   res.send(title + description);
 });
 
@@ -104,7 +104,7 @@ app.get('/movies', (req, res) => {
 
 // Return data about a single movie by title to the user
 app.get('/movies/:title', (req, res) => {
-  let movie = movies.find((movie) => movie.Title === req.params.title);
+  const movie = movies.find((movie) => movie.Title === req.params.title);
   if (movie) {
     res.status(200).json(movie);
   } else {
@@ -114,7 +114,9 @@ app.get('/movies/:title', (req, res) => {
 
 // Return data about a genre
 app.get('/movies/genre/:genreName', (req, res) => {
-  let genre = movies.find((movie) => movie.Genre.Name === req.params.genreName);
+  const genre = movies.find(
+    (movie) => movie.Genre.Name === req.params.genreName
+  );
   if (genre) {
     res.status(200).send(req.params.genreName + ' genre description');
   } else {
@@ -126,7 +128,7 @@ app.get('/movies/genre/:genreName', (req, res) => {
 
 // Return data about a director
 app.get('/movies/director/:directorName', (req, res) => {
-  let director = movies.find(
+  const director = movies.find(
     (movie) => movie.Director.Name === req.params.directorName
   );
   if (director) {
@@ -147,7 +149,7 @@ app.get('/users', (req, res) => {
 
 // Get a user by id
 app.get('/users/:id', (req, res) => {
-  let user = users.find((user) => user.id == req.params.id);
+  const user = users.find((user) => user.id == req.params.id);
   if (user) {
     res.status(200).json(user);
   } else {
@@ -159,7 +161,7 @@ app.get('/users/:id', (req, res) => {
 
 // Allow new users to register
 app.post('/users', (req, res) => {
-  let newUser = req.body;
+  const newUser = req.body;
   if (!newUser.name) {
     return res.status(400).send('Name is required.');
   }
@@ -170,7 +172,7 @@ app.post('/users', (req, res) => {
 
 // Allow users to update their user info
 app.put('/users/:id', (req, res) => {
-  let user = users.find((user) => user.id == req.params.id);
+  const user = users.find((user) => user.id == req.params.id);
   if (user) {
     user.name = req.body.name;
     res.status(200).json(user);
@@ -183,7 +185,7 @@ app.put('/users/:id', (req, res) => {
 
 // Allow users to add a movie to their list of favorites
 app.post('/users/:id/:movieTitle', (req, res) => {
-  let user = users.find((user) => user.id == req.params.id);
+  const user = users.find((user) => user.id == req.params.id);
   if (user) {
     user.favoriteMovies.push(req.params.movieTitle);
     res
@@ -203,7 +205,7 @@ app.post('/users/:id/:movieTitle', (req, res) => {
 
 // Allow users to remove a movie from their list of favorites
 app.delete('/users/:id/:movieTitle', (req, res) => {
-  let user = users.find((user) => user.id == req.params.id);
+  const user = users.find((user) => user.id == req.params.id);
   if (user) {
     user.favoriteMovies = user.favoriteMovies.filter(
       (movie) => movie !== req.params.movieTitle
@@ -225,7 +227,7 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
 
 // Allow existing users to deregister
 app.delete('/users/:id', (req, res) => {
-  let user = users.find((user) => user.id == req.params.id);
+  const user = users.find((user) => user.id == req.params.id);
   if (user) {
     users = users.filter((user) => user.id != req.params.id);
     res.status(200).send('User ' + req.params.id + ' has been deleted.');
