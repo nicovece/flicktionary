@@ -12,7 +12,14 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://localhost:27017/flicktionary', { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect('mongodb://localhost:27017/flicktionary', { useNewUrlParser: true, useUnifiedTopology: true });
+/*
+useNewUrlParser, useUnifiedTopology, useFindAndModify, and useCreateIndex are no longer supported options. Mongoose 6 always behaves as if useNewUrlParser, useUnifiedTopology, and useCreateIndex are true, and useFindAndModify is false. Please remove these options from your code.
+
+ref.: https://mongoosejs.com/docs/6.x/docs/migrating_to_6.html
+
+*/
+mongoose.connect('mongodb://localhost:27017/flicktionary');
 
 // log all requests to log.txt
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
@@ -98,7 +105,7 @@ app.use(express.static('public'));
 
 // parse request body
 app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }); 
+app.use(express.urlencoded({ extended: true })); 
 
 // error handling
 app.use((err, req, res, next) => {
