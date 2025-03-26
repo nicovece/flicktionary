@@ -169,87 +169,147 @@ app.get('/movies/director/:directorName', (req, res) => {
 //Users endpoints
 
 // Get all users
-app.get('/users', (req, res) => {
-  res.json(users);
+app.get('/users', async (req, res) => {
+  await Users.find()
+    .then((users) => {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
-// Get a user by id
-app.get('/users/:id', (req, res) => {
-  const { id } = req.params;
-  const user = users.find((user) => user.id == id);
-  if (user) {
-    res.status(200).json(user);
-  } else {
-    res.status(400).send('The user with id ' + id + ' was not found.');
-  }
+// Get a user by username
+app.get('/users/:Username', async (req, res) => {
+  await Users.findOne({ Username: req.params.Username })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // Allow new users to register
-app.post('/users', (req, res) => {
-  const newUser = req.body;
-  if (!newUser.name) {
-    return res.status(400).send('Name is required.');
-  }
-  newUser.id = uuid.v4();
-  users.push(newUser);
-  res.status(201).json(newUser);
+/*
+Expected JSON format
+{
+  ID: Integer,
+  Username: String,
+  Password: String,
+  Email: String,
+  Birthday: Date
+}
+*/
+app.post('/users', async (req, res) => {
+  await Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + 'already exists');
+      } else {
+        Users
+          .create({
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+          })
+          .then((user) =>{res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
-// Allow users to update their user info
-app.put('/users/:id', (req, res) => {
-  const { id } = req.params;
-  const updatedUser = req.body;
-  let user = users.find((user) => user.id == id);
-  if (user) {
-    user.name = updatedUser.name;
-    res.status(200).json(user);
-  } else {
-    res
-      .status(400)
-      .send('The user with id ' + req.params.id + ' was not found.');
-  }
+// Update user (by Username) info
+/*
+Expected JSON format
+{
+  Username: String,
+  (required)
+  Password: String,
+  (required)
+  Email: String,
+  (required)
+  Birthday: Date
+}
+*/
+app.put('/users/:Username', async (req, res) => {
+  await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+    {
+      Username: req.body.Username,
+      Password: req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday
+    }
+  },
+  { new: true }) // return the updated (new) document
+  .then((updatedUser) => {
+    res.json(updatedUser);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send("Error: " + err);
+  })
+
 });
 
 // Allow users to add a movie to their list of favorites
-app.post('/users/:id/:movieTitle', (req, res) => {
-  const { id, movieTitle } = req.params;
-  let user = users.find((user) => user.id == id);
-  if (user) {
-    user.favoriteMovies.push(movieTitle);
-    res
-      .status(200)
-      .send(movieTitle + ' has been added to user ' + id + ' favs list');
-  } else {
-    res.status(400).send('The user with id ' + id + ' was not found.');
-  }
+
+app.post('/users/:Username/movies/:MovieID', async (req, res) => {
+  await Users.findOneAndUpdate({ Username: req.params.Username }, {
+    $push: { FavoriteMovies: req.params.MovieID }
+  },
+   { new: true }) // This line makes sure that the updated document is returned
+  .then((updatedUser) => {
+    res.json(updatedUser);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
 // Allow users to remove a movie from their list of favorites
-app.delete('/users/:id/:movieTitle', (req, res) => {
-  const { id, movieTitle } = req.params;
-  let user = users.find((user) => user.id == id);
-  if (user) {
-    user.favoriteMovies = user.favoriteMovies.filter(
-      (title) => title !== movieTitle
-    );
-    res
-      .status(200)
-      .send(movieTitle + ' has been removed from user ' + id + '\'s list');
-  } else {
-    res.status(400).send('The user with id ' + id + ' was not found.');
-  }
+app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
+  await Users.findOneAndUpdate({ Username: req.params.Username }, {
+    $pull: { FavoriteMovies: req.params.MovieID }
+  },
+   { new: true }) // This line makes sure that the updated document is returned
+  .then((updatedUser) => {
+    res.json(updatedUser);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
 // Allow existing users to deregister
-app.delete('/users/:id', (req, res) => {
-  const { id } = req.params;
-  let user = users.find((user) => user.id == id);
-  if (user) {
-    users = users.filter((user) => user.id != id);
-    res.status(200).send('User ' + id + ' has been deleted.');
-  } else {
-    res.status(400).send('The user with id ' + id + ' was not found.');
-  }
+app.delete('/users/:Username', async (req, res) => {
+  /*
+  Model.findOneAndRemove() gave me an error: "is not a function." The references to the MongoDB querying functions in the exercise are outdated. The page redirects to the new documentation, where there is no mention of Model.findOneAndRemove(). Instead, I used Model.findOneAndDelete().
+  */
+  await Users.findOneAndDelete({ Username: req.params.Username })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(req.params.Username + ' was not found');
+      } else {
+        res.status(200).send(req.params.Username + ' was deleted.');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // listen for requests
