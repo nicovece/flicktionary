@@ -126,44 +126,51 @@ app.get('/', (req, res) => {
 // Movies endpoints
 
 // Return a list of ALL movies to the user
-app.get('/movies', (req, res) => {
-  res.json(movies);
+app.get('/movies', async (req, res) => {
+  await Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // Return data about a single movie by title to the user
-app.get('/movies/:title', (req, res) => {
-  const { title } = req.params;
-  const movie = movies.find((movie) => movie.Title === title);
-  if (movie) {
-    res.status(200).json(movie);
-  } else {
-    res.status(404).send('Movie named "' + title + '" not found.');
-  }
+app.get('/movies/:Title', async (req, res) => {
+  await Movies.findOne({ Title: req.params.Title })
+    .then((movie) => {
+      res.json(movie);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // Return data about a genre
-app.get('/movies/genre/:genreName', (req, res) => {
-  const { genreName } = req.params;
-  const genre = movies.find((movie) => movie.Genre.Name === genreName).Genre;
-  if (genre) {
-    // res.status(200).send(genreName + ' genre description');
-    res.status(200).json(genre);
-  } else {
-    res.status(404).send('Genre named "' + genreName + '" not found.');
-  }
+app.get('/movies/genre/:genreName', async (req, res) => {
+  await Movies.findOne({ "Genre.Name": req.params.genreName })
+  .then((movie) => {
+      res.json(movie.Genre);
+  })
+  .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+  })
 });
 
 // Return data about a director
-app.get('/movies/director/:directorName', (req, res) => {
-  const { directorName } = req.params;
-  const director = movies.find(
-    (movie) => movie.Director.Name === directorName
-  ).Director;
-  if (director) {
-    res.status(200).json(director);
-  } else {
-    res.status(404).send('Director named "' + directorName + '" not found.');
-  }
+app.get('/movies/director/:directorName', async (req, res) => {
+  await Movies.findOne({ "Director.Name": req.params.directorName })
+  .then((movie) => {
+      res.json(movie.Director);
+  })
+  .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+  })
 });
 
 //Users endpoints
@@ -303,7 +310,7 @@ app.delete('/users/:Username', async (req, res) => {
       if (!user) {
         res.status(400).send(req.params.Username + ' was not found');
       } else {
-        res.status(200).send(req.params.Username + ' was deleted.');
+        res.status(200).send('User with username "' + req.params.Username + ' " successfully removed.');
       }
     })
     .catch((err) => {

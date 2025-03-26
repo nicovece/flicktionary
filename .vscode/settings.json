@@ -1,2 +1,3 @@
 {
+  "autominify.enableHTMLMinification": false
 }
