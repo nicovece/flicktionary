@@ -102,6 +102,9 @@ table td p {
 table td pre {
   margin: 1em 0 0 0;
   font-size: 0.875rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 table td pre:only-child {
@@ -130,8 +133,8 @@ table td pre:only-child {
     margin: 0 0 1rem 0;
   }
 
-  tr:nth-child(odd) {
-  }
+  /* tr:nth-child(odd) {
+  }*/
 
   td {
     padding: 1.5em 1em;
@@ -153,6 +156,23 @@ table td pre:only-child {
   }
   table td pre {
     white-space: break-spaces;
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 20%;
+  }
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 8%;
+  }
+  th:nth-child(5),
+  td:nth-child(5),
+  th:nth-child(6),
+  td:nth-child(6) {
+    width: 20%;
   }
 }
 
