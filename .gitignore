@@ -6,3 +6,5 @@ node_modules/
 index.min.js
 
 package.min.json
+
+.DS_Store
