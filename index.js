@@ -3,9 +3,16 @@ const express = require('express'),
   fs = require('fs'),
   path = require('path'),
   bodyParser = require('body-parser'),
-  uuid = require('uuid');
+  uuid = require('uuid'),
+  mongoose = require('mongoose');
 
 const app = express();
+
+const Models = require('./models.js');
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect('mongodb://localhost:27017/flicktionary', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // log all requests to log.txt
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
@@ -91,6 +98,7 @@ app.use(express.static('public'));
 
 // parse request body
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }); 
 
 // error handling
 app.use((err, req, res, next) => {
