@@ -26,75 +26,6 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
   flags: 'a'
 });
 
-// Sample data - 2 users
-let users = [
-  {
-    id: 1,
-    name: 'Paul',
-    favoriteMovies: []
-  },
-  {
-    id: 2,
-    name: 'Nico',
-    favoriteMovies: ['John Wick']
-  }
-];
-
-// Sample data - 3 movies
-let movies = [
-  {
-    Title: 'Iron Man 2',
-    Description:
-      'With the world now aware that he is Iron Man, billionaire inventor Tony Stark (Robert Downey Jr.) faces pressure from all sides to share his technology with the military. He is reluctant to divulge the secrets of his armored suit, fearing the information will fall into the wrong hands. With Pepper Potts (Gwyneth Paltrow) and Rhodey (Don Cheadle) by his side, Tony must forge new alliances and confront a powerful new enemy.',
-    Genre: {
-      Name: 'Sci-fi',
-      Description:
-        'Science fiction is a genre of speculative fiction that typically deals with imaginative and futuristic concepts such as advanced science and technology, space exploration, time travel, parallel universes, and extraterrestrial life.'
-    },
-    Director: {
-      Name: 'John Favreau',
-      Bio: 'Jonathan Kolia Favreau is an American actor and filmmaker. As an actor, Favreau has appeared in films such as Rudy, PCU, Swingers, Very Bad Things, Deep Impact, The Replacements, Daredevil, The Break-Up, Four Christmases, Couples Retreat, I Love You, Man, People Like Us, The Wolf of Wall Street, and Chef. ',
-      Birth: 'October 19, 1966'
-    },
-    ImageURL:
-      'https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p3546118_p_v10_af.jpg'
-  },
-  {
-    Title: 'Captain America: The Winter Soldier',
-    Description:
-      'After the cataclysmic events in New York with his fellow Avengers, Steve Rogers, aka Captain America (Chris Evans), lives in the nation\'s capital as he tries to adjust to modern times. An attack on a S.H.I.E.L.D. colleague throws Rogers into a web of intrigue that places the whole world at risk. Joining forces with the Black Widow (Scarlett Johansson) and a new ally, the Falcon, Rogers struggles to expose an ever-widening conspiracy, but he and his team soon come up against an unexpected enemy.',
-    Genre: {
-      Name: 'Adventure',
-      Description:
-        'Adventure films are a genre of film that typically use their action scenes to display and explore exotic locations in an energetic way.'
-    },
-    Director: {
-      Name: 'Joe & Anthony Russo',
-      Bio: 'Anthony Russo is an American film director and producer. He is best known for directing four installments of the Marvel Cinematic Universe franchise, Captain America: The Winter Soldier, Captain America: Civil War, Avengers: Infinity War, and Avengers: Endgame.',
-      Birth: 'February 3, 1970'
-    },
-    ImageURL:
-      'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTfP_GN63NrHEjZ4unvJbGE7neVs5W_6SlUmYHscaXhUSHMkce3eYBL8eiDbwRt4e0oCv0n'
-  },
-  {
-    Title: 'John Wick',
-    Description:
-      'John Wick is a former hitman grieving the loss of his true love. When his home is broken into, robbed, and his dog killed, he is forced to return to action to exact revenge.',
-    Genre: {
-      Name: 'Action',
-      Description:
-        'Action films are a film genre where the primary emphasis is on the action. These films are characterized by a lot of physical activity (stunts, chases, fights, battles and explosions).'
-    },
-    Director: {
-      Name: 'Chad Stahelski',
-      Bio: 'Chad Stahelski is an American stuntman and film director. He is known for directing the 2014 film John Wick along with David Leitch, and solo directing its two sequels.',
-      Birth: 'September 20, 1968'
-    },
-    ImageURL:
-      'https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg'
-  }
-];
-
 // Middleware
 
 // log all requests to log.txt
@@ -106,6 +37,13 @@ app.use(express.static('public'));
 // parse request body
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true })); 
+
+// Authentication & Authorization
+// import auth.js
+let auth = require('./auth')(app);
+// import passport.js
+const passport = require('passport');
+require('./passport');
 
 // error handling
 app.use((err, req, res, next) => {
@@ -126,7 +64,7 @@ app.get('/', (req, res) => {
 // Movies endpoints
 
 // Return a list of ALL movies to the user
-app.get('/movies', async (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false}), async (req, res) => {
   await Movies.find()
     .then((movies) => {
       res.status(200).json(movies);
@@ -138,7 +76,7 @@ app.get('/movies', async (req, res) => {
 });
 
 // Return data about a single movie by title to the user
-app.get('/movies/:Title', async (req, res) => {
+app.get('/movies/:Title', passport.authenticate('jwt', { session: false}), async (req, res) => {
   await Movies.findOne({ Title: req.params.Title })
     .then((movie) => {
       res.json(movie);
@@ -150,7 +88,7 @@ app.get('/movies/:Title', async (req, res) => {
 });
 
 // Return data about a genre
-app.get('/movies/genre/:genreName', async (req, res) => {
+app.get('/movies/genre/:genreName', passport.authenticate('jwt', { session: false}), async (req, res) => {
   await Movies.findOne({ "Genre.Name": req.params.genreName })
   .then((movie) => {
       res.json(movie.Genre);
@@ -162,7 +100,7 @@ app.get('/movies/genre/:genreName', async (req, res) => {
 });
 
 // Return data about a director
-app.get('/movies/director/:directorName', async (req, res) => {
+app.get('/movies/director/:directorName', passport.authenticate('jwt', { session: false}), async (req, res) => {
   await Movies.findOne({ "Director.Name": req.params.directorName })
   .then((movie) => {
       res.json(movie.Director);
@@ -176,7 +114,7 @@ app.get('/movies/director/:directorName', async (req, res) => {
 //Users endpoints
 
 // Get all users
-app.get('/users', async (req, res) => {
+app.get('/users', passport.authenticate('jwt', { session: false}), async (req, res) => {
   await Users.find()
     .then((users) => {
       res.status(201).json(users);
@@ -188,7 +126,7 @@ app.get('/users', async (req, res) => {
 });
 
 // Get a user by username
-app.get('/users/:Username', async (req, res) => {
+app.get('/users/:Username', passport.authenticate('jwt', { session: false}), async (req, res) => {
   await Users.findOne({ Username: req.params.Username })
     .then((user) => {
       res.json(user);
@@ -249,7 +187,11 @@ Expected JSON format
   Birthday: Date
 }
 */
-app.put('/users/:Username', async (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false}), async (req, res) => {
+  // Check if same user as logged in
+  if (req.user.Username !== req.params.Username) {
+    return res.status(400).send('Permission denied');
+  }
   await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
@@ -271,7 +213,11 @@ app.put('/users/:Username', async (req, res) => {
 
 // Allow users to add a movie to their list of favorites
 
-app.post('/users/:Username/movies/:MovieID', async (req, res) => {
+app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false}), async (req, res) => {
+  // Check if same user as logged in
+  if (req.user.Username !== req.params.Username) {
+    return res.status(400).send('Permission denied');
+  }
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
     $push: { FavoriteMovies: req.params.MovieID }
   },
@@ -286,7 +232,11 @@ app.post('/users/:Username/movies/:MovieID', async (req, res) => {
 });
 
 // Allow users to remove a movie from their list of favorites
-app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
+app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false}), async (req, res) => {
+  // Check if same user as logged in
+  if (req.user.Username !== req.params.Username) {
+    return res.status(400).send('Permission denied');
+  }
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
     $pull: { FavoriteMovies: req.params.MovieID }
   },
@@ -301,10 +251,11 @@ app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
 });
 
 // Allow existing users to deregister
-app.delete('/users/:Username', async (req, res) => {
-  /*
-  Model.findOneAndRemove() gave me an error: "is not a function." The references to the MongoDB querying functions in the exercise are outdated. The page redirects to the new documentation, where there is no mention of Model.findOneAndRemove(). Instead, I used Model.findOneAndDelete().
-  */
+app.delete('/users/:Username', passport.authenticate('jwt', { session: false}), async (req, res) => {
+  // Check if same user as logged in
+  if (req.user.Username !== req.params.Username) {
+    return res.status(400).send('Permission denied');
+  }
   await Users.findOneAndDelete({ Username: req.params.Username })
     .then((user) => {
       if (!user) {
