@@ -4,7 +4,5 @@ node_modules/
 .eslintrc
 .prettierrc
 index.min.js
-
 auth.min.js
-
 passport.min.js
