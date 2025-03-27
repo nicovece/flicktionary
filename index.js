@@ -129,7 +129,7 @@ app.get('/', (req, res) => {
 app.get('/movies', async (req, res) => {
   await Movies.find()
     .then((movies) => {
-      res.status(201).json(movies);
+      res.status(200).json(movies);
     })
     .catch((err) => {
       console.error(err);
