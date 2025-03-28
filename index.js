@@ -38,6 +38,10 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true })); 
 
+// CORS
+const cors = require('cors');
+app.use(cors());
+
 // Authentication & Authorization
 // import auth.js
 let auth = require('./auth')(app);
@@ -149,6 +153,8 @@ Expected JSON format
 }
 */
 app.post('/users', async (req, res) => {
+  // hash password
+  let hashedPassword = Users.hashPassword(req.body.Password);
   await Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -157,11 +163,13 @@ app.post('/users', async (req, res) => {
         Users
           .create({
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
-          .then((user) =>{res.status(201).json(user) })
+          .then((user) =>{res.status(201).json(user),
+            console.log(user);
+           })
         .catch((error) => {
           console.error(error);
           res.status(500).send('Error: ' + error);
