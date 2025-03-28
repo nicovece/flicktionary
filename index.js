@@ -167,9 +167,7 @@ app.post('/users', async (req, res) => {
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
-          .then((user) =>{res.status(201).json(user),
-            console.log(user);
-           })
+          .then((user) =>{res.status(201).json(user) })
         .catch((error) => {
           console.error(error);
           res.status(500).send('Error: ' + error);

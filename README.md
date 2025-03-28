@@ -103,7 +103,7 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
     "Username": "john_doe",
     "Password": "password123",
     "Email": "john.doe@example.com",
-    "Birth_date": "ISODate('1990-05-15T00 ...')",
+    "Birthday": "ISODate('1990-05-15T00 ...')",
     "FavoriteMovies": []
   },
   {
@@ -111,7 +111,7 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
     "Username": "jane_smith",
     "Password": "securePass456",
     "Email": "jane.smith@example.com",
-    "Birth_date": "ISODate('1985-11-20T00 ...')",
+    "Birthday": "ISODate('1985-11-20T00 ...')",
     "FavoriteMovies": []
   }
 ]
@@ -129,7 +129,7 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
   "Username": "john_doe",
   "Password": "password123",
   "Email": "john.doe@example.com",
-  "Birth_date": "ISODate('1990-05-15T00 ...')",
+  "Birthday": "ISODate('1990-05-15T00 ...')",
   "FavoriteMovies": []
 }
 ```
@@ -158,7 +158,7 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
   "Username": "john_doe",
   "Password": "password123",
   "Email": "john.doe@example.com",
-  "Birth_date": "ISODate('1990-05-15T00:00:00.000Z')",
+  "Birthday": "ISODate('1990-05-15T00:00:00.000Z')",
   "FavoriteMovies": []
 }
 ```
@@ -187,7 +187,7 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
   "Username": "john_doe",
   "Password": "password123",
   "Email": "john.doe@example.com",
-  "Birth_date": "ISODate('1990-05-15T00:00:00.000Z')",
+  "Birthday": "ISODate('1990-05-15T00:00:00.000Z')",
   "FavoriteMovies": []
 }
 ```
@@ -204,7 +204,7 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
   "Username": "john_doe",
   "Password": "password123",
   "Email": "john.doe@example.com",
-  "Birth_date": "1990-05-15T00:00:00.000Z",
+  "Birthday": "1990-05-15T00:00:00.000Z",
   "FavoriteMovies": ["67e06937dd46a81da53227a3", "67e06937dd46a81da53227a4"]
 }
 ```
@@ -221,7 +221,7 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
   "Username": "john_doe",
   "Password": "password123",
   "Email": "john.doe@example.com",
-  "Birth_date": "1990-05-15T00:00:00.000Z",
+  "Birthday": "1990-05-15T00:00:00.000Z",
   "FavoriteMovies": ["67e06937dd46a81da53227a3"]
 }
 ```

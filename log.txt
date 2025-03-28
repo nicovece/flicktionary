@@ -631,3 +631,5 @@
 ::1 - - [28/Mar/2025:18:18:00 +0000] "POST /users HTTP/1.1" 201 185 "-" "PostmanRuntime/7.43.2"
 ::1 - - [28/Mar/2025:18:20:00 +0000] "POST /login?Username=pollo&Password=pollword HTTP/1.1" 200 597 "-" "PostmanRuntime/7.43.2"
 ::1 - - [28/Mar/2025:18:20:22 +0000] "GET /users/pollo HTTP/1.1" 200 185 "-" "PostmanRuntime/7.43.2"
+::1 - - [28/Mar/2025:19:53:57 +0000] "POST /users HTTP/1.1" 201 186 "-" "PostmanRuntime/7.43.2"
+::1 - - [28/Mar/2025:19:57:36 +0000] "POST /users HTTP/1.1" 201 224 "-" "PostmanRuntime/7.43.2"
