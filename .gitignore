@@ -1,5 +1,9 @@
 # Ignore node_modules folder
 node_modules/
+node_modules/.env
 # Ignore personal configuration files
 .eslintrc
 .prettierrc
+
+.DS_Store
+.env

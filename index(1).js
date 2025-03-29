@@ -213,14 +213,17 @@ app.post('/users', [
 Expected JSON format
 {
   Username: String,
+  (required)
   Password: String,
+  (required)
   Email: String,
+  (required)
   Birthday: Date
 }
 */
 app.put('/users/:Username', passport.authenticate('jwt', { session: false}), [
   check('Username').isLength({min: 5}).withMessage('Username must be at least 5 characters long').isAlphanumeric().withMessage('Username contains non alphanumeric characters'),
-  check('Email').optional().isEmail().withMessage('Email does not have a valid format'),
+  check('Email', 'Email does not have a valid format').isEmail(),
   check('Password')
     .optional()
     .isLength({ min: 8 })
@@ -234,44 +237,29 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false}), [
   if (req.user.Username !== req.params.Username) {
     return res.status(400).send('Permission denied');
   }
-  
+
   // check the validation object for errors
   let errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
-  
-  try {
-    // Create update object conditionally
-    const updateFields = {
-      Username: req.body.Username
-    };
 
-    if (req.body.Email) {
-      updateFields.Password = req.body.Email;
+  await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+    {
+      Username: req.body.Username,
+      Password: Users.hashPassword(req.body.Password),
+      Email: req.body.Email,
+      Birthday: req.body.Birthday
     }
-    
-    // Only add password if it exists in the request
-    if (req.body.Password) {
-      updateFields.Password = Users.hashPassword(req.body.Password);
-    }
-    
-    // Only add birthday if it exists in the request
-    if (req.body.Birthday) {
-      updateFields.Birthday = req.body.Birthday;
-    }
-    
-    const updatedUser = await Users.findOneAndUpdate(
-      { Username: req.params.Username },
-      { $set: updateFields },
-      { new: true } // return the updated (new) document
-    );
-    
+  },
+  { new: true }) // return the updated (new) document
+  .then((updatedUser) => {
     res.json(updatedUser);
-  } catch (err) {
+  })
+  .catch((err) => {
     console.error(err);
     res.status(500).send("Error: " + err);
-  }
+  })
 });
 
 // Allow users to add a movie to their list of favorites
