@@ -5,7 +5,10 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   uuid = require('uuid'),
   mongoose = require('mongoose'),
+  dotenv = require('dotenv'),
   {check, validationResult} = require('express-validator');
+
+dotenv.config();
 
 const app = express();
 
@@ -334,7 +337,7 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false}), 
 });
 
 // listen for requests
-const port = process.env.PORT || 8080;
+const port = process.env.PORT;
 app.listen(port, '0.0.0.0',() => {
   console.log('Listening on port ' + port);
 });
