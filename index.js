@@ -4,7 +4,8 @@ const express = require('express'),
   path = require('path'),
   bodyParser = require('body-parser'),
   uuid = require('uuid'),
-  mongoose = require('mongoose');
+  mongoose = require('mongoose'),
+  {check, validationResult} = require('express-validator');
 
 const app = express();
 
@@ -152,9 +153,22 @@ Expected JSON format
   Birthday: Date
 }
 */
-app.post('/users', async (req, res) => {
+app.post('/users', [
+  check('Username', 'Username is required and must be at least 5 characters long.').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], async (req, res) => {
+  // check the validation object for errors
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
   // hash password
   let hashedPassword = Users.hashPassword(req.body.Password);
+
   await Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -168,10 +182,10 @@ app.post('/users', async (req, res) => {
             Birthday: req.body.Birthday
           })
           .then((user) =>{res.status(201).json(user) })
-        .catch((error) => {
-          console.error(error);
-          res.status(500).send('Error: ' + error);
-        })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+          })
       }
     })
     .catch((error) => {
@@ -193,11 +207,23 @@ Expected JSON format
   Birthday: Date
 }
 */
-app.put('/users/:Username', passport.authenticate('jwt', { session: false}), async (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false}), [
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not have a valid format').isEmail()
+], async (req, res) => {
   // Check if same user as logged in
   if (req.user.Username !== req.params.Username) {
     return res.status(400).send('Permission denied');
   }
+
+  // check the validation object for errors
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
   await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
@@ -214,7 +240,6 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false}), asy
     console.error(err);
     res.status(500).send("Error: " + err);
   })
-
 });
 
 // Allow users to add a movie to their list of favorites
