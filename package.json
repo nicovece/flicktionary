@@ -1,7 +1,7 @@
 {
   "name": "flicktionary",
   "version": "0.0.0",
-  "description": "A dictionary, but only for flicks. The server-side component of a "movies" web application",
+  "description": "A dictionary, but only for flicks. The server-side component of a movies web application",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

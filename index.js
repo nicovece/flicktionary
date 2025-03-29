@@ -50,7 +50,7 @@ app.use(cors({
   origin: (origin, callback) => {
     if(!origin) return callback(null, true); // Allow requests without any origin (e.g. mobile apps)
     if(allowedOrigins.indexOf(origin) === -1){ // If origin not in allowed list
-      let message = 'The CORS policy for this application doesn't allow access from origin ' + origin;
+      let message = 'The CORS policy for this application does not allow access from origin ' + origin;
       return callback(new Error(message ), false);
     }
     return callback(null, true); // Allow the request
