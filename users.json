@@ -1,0 +1,4 @@
+{"_id":{"$oid":"67e6e784181cea71933d9479"},"Username":"john_doe","Password":"$2b$10$bIpaxwrsiG1D45JlonktIOXVjGpDVCb/AsCS4JiPkxzFZHwcIXwli","Email":"john.doe@example.com","FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"67e6e7b4181cea71933d947c"},"Username":"jane_smith","Password":"$2b$10$g75FLEjNMpHjhkV9TiyymOagO2KJ7YEdK/8HMTdUOxOa2bS068/PW","Email":"jane.smith@example.com","FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"67e6e7d8181cea71933d947f"},"Username":"pollo","Password":"$2b$10$EF4hZfnef1qg5sNXewQxxuigWbpQS9qy/Y/L5f46xGDWGtmf/1qt.","Email":"polstarr2@gmail.com","FavoriteMovies":[{"$oid":"67e06937dd46a81da53227a6"}],"__v":0}
+{"_id":{"$oid":"67e7cc21afe969b854f2fe88"},"Username":"testing","Password":"$2b$10$wpslKTYAcMdGxbFvEmNcH.WJC8sbAZN71zcEGSFMyZQtTxngjT6nC","Email":"test@testingc.om","Birthday":{"$date":"1980-04-25T00:00:00Z"},"FavoriteMovies":[],"__v":0}
