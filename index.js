@@ -20,7 +20,10 @@ useNewUrlParser, useUnifiedTopology, useFindAndModify, and useCreateIndex are no
 ref.: https://mongoosejs.com/docs/6.x/docs/migrating_to_6.html
 
 */
-mongoose.connect('mongodb://localhost:27017/flicktionary');
+/* local connection */
+// mongoose.connect('mongodb://localhost:27017/flicktionary');
+/* atlas connection */
+mongoose.connect(process.env.CONNECTION_URI);
 
 // log all requests to log.txt
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
