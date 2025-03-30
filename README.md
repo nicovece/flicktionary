@@ -1,4 +1,6 @@
-# F L I C K T I O N A R Y - A dictionary for flicks
+# F L I C K T I O N A R Y
+
+A dictionary for flicks
 
 ## API Documentation
 
@@ -6,12 +8,31 @@
 
 Welcome to the Flicktionary documentation. Here you will find all the information you need to interact with the API. Flicktionary API allows users to explore information about movies. Users can sign up, update their personal details, and curate lists of their favorite films. Additionally, they can search the movie database using filters such as movie title, genre, actor name, and more.
 
+### Authentication
+
+Most endpoints require JWT (JSON Web Token) authentication. Include the JWT token in the Authorization header of your requests:
+
+```
+Authorization: Bearer <your_jwt_token>
+```
+
+### Security Features
+
+- CORS enabled for all origins
+- Security headers implemented:
+  - X-Content-Type-Options: nosniff
+  - X-Frame-Options: DENY
+  - X-XSS-Protection: 1; mode=block
+- Password hashing for user credentials
+- JWT-based authentication
+
 ### API Endpoints
 
 #### Return a list of ALL movies
 
 - **URL:** `/movies`
 - **Method:** GET
+- **Authentication:** Required
 - **Response Example:**
 
 ```json
@@ -40,6 +61,7 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
 
 - **URL:** `/movies/:Title`
 - **Method:** GET
+- **Authentication:** Required
 - **Response Example:**
 
 ```json
@@ -66,6 +88,7 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
 
 - **URL:** `/movies/genre/:genreName`
 - **Method:** GET
+- **Authentication:** Required
 - **Response Example:**
 
 ```json
@@ -79,6 +102,7 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
 
 - **URL:** `/movies/director/:directorName`
 - **Method:** GET
+- **Authentication:** Required
 - **Response Example:**
 
 ```json
@@ -94,6 +118,7 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
 
 - **URL:** `/users`
 - **Method:** GET
+- **Authentication:** Required
 - **Response Example:**
 
 ```json
@@ -101,17 +126,8 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
   {
     "_id": "ObjectId('67e3ee6ec963a7641fc ...')",
     "Username": "john_doe",
-    "Password": "password123",
     "Email": "john.doe@example.com",
     "Birthday": "ISODate('1990-05-15T00 ...')",
-    "FavoriteMovies": []
-  },
-  {
-    "_id": "ObjectId('67e3ee6ec963a7641fc ...')",
-    "Username": "jane_smith",
-    "Password": "securePass456",
-    "Email": "jane.smith@example.com",
-    "Birthday": "ISODate('1985-11-20T00 ...')",
     "FavoriteMovies": []
   }
 ]
@@ -121,13 +137,13 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
 
 - **URL:** `/users/:Username`
 - **Method:** GET
+- **Authentication:** Required
 - **Response Example:**
 
 ```json
 {
   "_id": "ObjectId('67e3ee6ec963a7641fc ...')",
   "Username": "john_doe",
-  "Password": "password123",
   "Email": "john.doe@example.com",
   "Birthday": "ISODate('1990-05-15T00 ...')",
   "FavoriteMovies": []
@@ -136,13 +152,13 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
 
 #### Allows new users registration
 
-- **URL:** `/users/`
+- **URL:** `/users`
 - **Method:** POST
+- **Authentication:** Not Required
 - **Request Body Format:**
 
 ```json
 {
-  "ID": "Integer",
   "Username": "String",
   "Password": "String",
   "Email": "String",
@@ -150,13 +166,24 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
 }
 ```
 
+- **Validation Rules:**
+
+  - Username:
+    - Must be at least 5 characters long
+    - Must contain only alphanumeric characters
+  - Password:
+    - Must be at least 8 characters long
+    - Must contain uppercase and lowercase letters
+    - Must contain numbers
+    - Must contain special characters (!@#$%^&\*-\_=+;:,.)
+  - Email must be in valid format
+
 - **Response Example:**
 
 ```json
 {
   "_id": "ObjectId('67e3ee6ec963a7641fc66bb6')",
   "Username": "john_doe",
-  "Password": "password123",
   "Email": "john.doe@example.com",
   "Birthday": "ISODate('1990-05-15T00:00:00.000Z')",
   "FavoriteMovies": []
@@ -165,13 +192,14 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
 
 #### Allows users to update their user info
 
-- **URL:** `/users/:id`
+- **URL:** `/users/:Username`
 - **Method:** PUT
+- **Authentication:** Required
+- **Permission:** Users can only update their own profile
 - **Request Body Format:**
 
 ```json
 {
-  "ID": "Integer",
   "Username": "String",
   "Password": "String",
   "Email": "String",
@@ -179,13 +207,13 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
 }
 ```
 
+- **Validation Rules:** Same as registration
 - **Response Example:**
 
 ```json
 {
   "_id": "ObjectId('67e3ee6ec963a7641fc66bb6')",
   "Username": "john_doe",
-  "Password": "password123",
   "Email": "john.doe@example.com",
   "Birthday": "ISODate('1990-05-15T00:00:00.000Z')",
   "FavoriteMovies": []
@@ -195,14 +223,15 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
 #### Allows users to add a movie to their favorites
 
 - **URL:** `/users/:Username/movies/:MovieID`
-- **Method:** PUT
+- **Method:** POST
+- **Authentication:** Required
+- **Permission:** Users can only add to their own favorites
 - **Response Example:**
 
 ```json
 {
   "_id": "67e3ee6ec963a7641fc66bb6",
   "Username": "john_doe",
-  "Password": "password123",
   "Email": "john.doe@example.com",
   "Birthday": "1990-05-15T00:00:00.000Z",
   "FavoriteMovies": ["67e06937dd46a81da53227a3", "67e06937dd46a81da53227a4"]
@@ -213,13 +242,14 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
 
 - **URL:** `/users/:Username/movies/:MovieID`
 - **Method:** DELETE
+- **Authentication:** Required
+- **Permission:** Users can only remove from their own favorites
 - **Response Example:**
 
 ```json
 {
   "_id": "67e3ee6ec963a7641fc66bb6",
   "Username": "john_doe",
-  "Password": "password123",
   "Email": "john.doe@example.com",
   "Birthday": "1990-05-15T00:00:00.000Z",
   "FavoriteMovies": ["67e06937dd46a81da53227a3"]
@@ -230,11 +260,22 @@ Welcome to the Flicktionary documentation. Here you will find all the informatio
 
 - **URL:** `/users/:Username`
 - **Method:** DELETE
+- **Authentication:** Required
+- **Permission:** Users can only delete their own account
 - **Response Example:**
 
 ```
 User with username "Username" successfully removed
 ```
+
+### Error Responses
+
+The API may return the following error responses:
+
+- **400 Bad Request**: Invalid request parameters or permission denied
+- **404 Not Found**: Resource not found
+- **422 Unprocessable Entity**: Validation errors
+- **500 Internal Server Error**: Server-side errors
 
 ### Footer
 
