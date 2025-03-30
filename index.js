@@ -87,76 +87,92 @@ app.get('/', (req, res) => {
 
 // Return a list of ALL movies to the user
 app.get('/movies', passport.authenticate('jwt', { session: false}), async (req, res) => {
-  await Movies.find()
-    .then((movies) => {
-      res.status(200).json(movies);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
+  try {
+    const movies = await Movies.find();
+    if (!movies || movies.length === 0) {
+      return res.status(404).send('No movies found');
+    }
+    res.status(200).json(movies);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  }
 });
 
 // Return data about a single movie by title to the user
 app.get('/movies/:Title', passport.authenticate('jwt', { session: false}), async (req, res) => {
-  await Movies.findOne({ Title: req.params.Title })
-    .then((movie) => {
-      res.json(movie);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
+  const { Title } = req.params;
+  try {
+    const movie = await Movies.findOne({ Title: Title });
+    if (!movie) {
+      return res.status(404).send('Movie with title "' + Title + '" not found');
+    }
+    res.json(movie);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  }
 });
 
 // Return data about a genre
 app.get('/movies/genre/:genreName', passport.authenticate('jwt', { session: false}), async (req, res) => {
-  await Movies.findOne({ "Genre.Name": req.params.genreName })
-  .then((movie) => {
-      res.json(movie.Genre);
-  })
-  .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-  })
+  const { genreName } = req.params;
+  try {
+    const movie = await Movies.findOne({ "Genre.Name": genreName });
+    if (!movie) {
+      return res.status(404).send('Genre "' + genreName + '" not found');
+    }
+    res.json(movie.Genre);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  }
 });
 
 // Return data about a director
 app.get('/movies/director/:directorName', passport.authenticate('jwt', { session: false}), async (req, res) => {
-  await Movies.findOne({ "Director.Name": req.params.directorName })
-  .then((movie) => {
-      res.json(movie.Director);
-  })
-  .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-  })
+  const { directorName } = req.params;
+  try {
+    const movie = await Movies.findOne({ "Director.Name": directorName });
+    if (!movie) {
+      return res.status(404).send('Director "' + directorName + '" not found');
+    }
+    res.json(movie.Director);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  }
 });
 
 //Users endpoints
 
 // Get all users
 app.get('/users', passport.authenticate('jwt', { session: false}), async (req, res) => {
-  await Users.find()
-    .then((users) => {
-      res.status(201).json(users);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
+  try {
+    const users = await Users.find();
+    if (!users || users.length === 0) {
+      return res.status(404).send('No users found');
+    }
+    res.status(200).json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  }
 });
 
 // Get a user by username
 app.get('/users/:Username', passport.authenticate('jwt', { session: false}), async (req, res) => {
-  await Users.findOne({ Username: req.params.Username })
-    .then((user) => {
-      res.json(user);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
+  const { Username } = req.params;
+  try {
+    const user = await Users.findOne({ Username: Username });
+    if (!user) {
+      return res.status(404).send('User ' + Username + ' not found');
+    }
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  }
 });
 
 // Allow new users to register
