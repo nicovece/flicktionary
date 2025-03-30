@@ -743,3 +743,8 @@
 127.0.0.1 - - [30/Mar/2025:11:53:11 +0000] "PUT /users/janesmith HTTP/1.1" 401 - "-" "PostmanRuntime/7.43.2"
 127.0.0.1 - - [30/Mar/2025:11:53:28 +0000] "PUT /users/janesmith HTTP/1.1" 401 - "-" "PostmanRuntime/7.43.2"
 127.0.0.1 - - [30/Mar/2025:11:53:30 +0000] "PUT /users/janesmith HTTP/1.1" 401 - "-" "PostmanRuntime/7.43.2"
+127.0.0.1 - - [30/Mar/2025:15:11:08 +0000] "GET /documentation.html HTTP/1.1" 304 - "http://localhost:8080/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0"
+127.0.0.1 - - [30/Mar/2025:15:11:08 +0000] "GET /css/styles.min.css HTTP/1.1" 304 - "http://localhost:8080/documentation.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:136.0) Gecko/20100101 Firefox/136.0"
+127.0.0.1 - - [30/Mar/2025:15:24:08 +0000] "PUT /users/janesmith HTTP/1.1" 401 - "-" "PostmanRuntime/7.43.2"
+127.0.0.1 - - [30/Mar/2025:15:24:45 +0000] "GET /users HTTP/1.1" 401 - "-" "PostmanRuntime/7.43.2"
+127.0.0.1 - - [30/Mar/2025:15:24:47 +0000] "GET /users HTTP/1.1" 401 - "-" "PostmanRuntime/7.43.2"
