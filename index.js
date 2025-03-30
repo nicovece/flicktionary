@@ -50,15 +50,19 @@ const cors = require('cors');
 let allowedOrigins = ['http://localhost:8080', 'https://flicktionary.onrender.com'];
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if(!origin) return callback(null, true); // Allow requests without any origin (e.g. mobile apps)
-    if(allowedOrigins.indexOf(origin) === -1){ // If origin not in allowed list
-      let message = 'The CORS policy for this application does not allow access from origin ' + origin;
-      return callback(new Error(message ), false);
-    }
-    return callback(null, true); // Allow the request
-  }
+  origin: '*', // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
+  maxAge: 86400 // Cache preflight requests for 24 hours
 }));
+
+// Add security headers
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  next();
+});
 
 // Authentication & Authorization
 // import auth.js
