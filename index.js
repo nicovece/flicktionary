@@ -280,40 +280,74 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false}), [
 
 // Allow users to add a movie to their list of favorites
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false}), async (req, res) => {
+  const { Username, MovieID } = req.params;
   // Check if same user as logged in or is Nico
-  if (req.user.Username !== req.params.Username && req.user.Username !== 'nicovece') {
+  if (req.user.Username !== Username && req.user.Username !== 'nicovece') {
     return res.status(400).send('Permission denied');
   }
-  await Users.findOneAndUpdate({ Username: req.params.Username }, {
-    $push: { FavoriteMovies: req.params.MovieID }
-  },
-   { new: true }) // This line makes sure that the updated document is returned
-  .then((updatedUser) => {
+  try {
+    // Check if movie exists
+    const newFavoriteMovie = await Movies.findById(MovieID);
+    if (!newFavoriteMovie) {
+      return res.status(404).send('Movie with ID ' + MovieID + ' not found');
+    }
+
+    // Check if user exists and if movie is already in favorites
+    const user = await Users.findOne({ Username: Username });
+    if (!user) {
+      return res.status(404).send('User ' + Username + ' not found');
+    }
+    if (user.FavoriteMovies.includes(MovieID)) {
+      return res.status(400).send('Movie is already in favorites');
+    }
+
+    const updatedUser = await Users.findOneAndUpdate(
+      { Username: Username },
+      { $push: { FavoriteMovies: MovieID } },
+      { new: true }
+    );
+
     res.json(updatedUser);
-  })
-  .catch((err) => {
+  } catch (err) {
     console.error(err);
     res.status(500).send('Error: ' + err);
-  });
+  }
 });
 
 // Allow users to remove a movie from their list of favorites
 app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false}), async (req, res) => {
+  const { Username, MovieID } = req.params;
   // Check if same user as logged in or is Nico
-  if (req.user.Username !== req.params.Username && req.user.Username !== 'nicovece') {
+  if (req.user.Username !== Username && req.user.Username !== 'nicovece') {
     return res.status(400).send('Permission denied');
   }
-  await Users.findOneAndUpdate({ Username: req.params.Username }, {
-    $pull: { FavoriteMovies: req.params.MovieID }
-  },
-   { new: true }) // This line makes sure that the updated document is returned
-  .then((updatedUser) => {
+  try {
+    // Check if movie exists
+    const movie = await Movies.findById(MovieID);
+    if (!movie) {
+      return res.status(404).send('Movie with ID ' + MovieID + ' not found');
+    }
+
+    // Check if user exists and if movie is in favorites
+    const user = await Users.findOne({ Username: Username });
+    if (!user) {
+      return res.status(404).send('User ' + Username + ' not found');
+    }
+    if (!user.FavoriteMovies.includes(MovieID)) {
+      return res.status(400).send('Movie is not in favorites');
+    }
+
+    const updatedUser = await Users.findOneAndUpdate(
+      { Username: Username },
+      { $pull: { FavoriteMovies: MovieID } },
+      { new: true }
+    );
+
     res.json(updatedUser);
-  })
-  .catch((err) => {
+  } catch (err) {
     console.error(err);
     res.status(500).send('Error: ' + err);
-  });
+  }
 });
 
 // Allow existing users to deregister
