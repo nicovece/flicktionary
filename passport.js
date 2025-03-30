@@ -1,10 +1,7 @@
 const passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
   Models = require('./models.js'),
-  passportJWT = require('passport-jwt'),
-  dotenv = require('dotenv');
-
-  dotenv.config();
+  passportJWT = require('passport-jwt');
 
 let Users = Models.User,
   JWTStrategy = passportJWT.Strategy,
@@ -17,11 +14,9 @@ passport.use(
       passwordField: 'Password',
     },
     async (username, password, callback) => {
-      console.log(`${username} ${password}`);
       await Users.findOne({ Username: username })
       .then((user) => {
         if (!user) {
-          console.log('incorrect username');
           return callback(null, false, {
             message: 'Incorrect username or password.',
           });
@@ -32,7 +27,6 @@ passport.use(
             message: 'Incorrect password.',
           });
         }
-        console.log('finished');
         return callback(null, user);
       })
       .catch((error) => {
@@ -50,7 +44,7 @@ passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.JWT_SECRET
 }, async (jwtPayload, callback) => {
-  return await Users.findById(jwtPayload._id)
+  return await Users.findOne({ Username: jwtPayload.subject })
     .then((user) => {
       return callback(null, user);
     })
