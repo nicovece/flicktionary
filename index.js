@@ -179,8 +179,6 @@ app.post('/users', [
   check('Password')
     .isLength({ min: 8 })
     .withMessage('Password must be at least 8 characters long')
-    .matches(/\d/)
-    .withMessage('Password must contain at least one number')
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*\-_=+;:,.]).{8,}$/)
     .withMessage('Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters')
 ], async (req, res) => {
@@ -236,8 +234,6 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false}), [
     .optional()
     .isLength({ min: 8 })
     .withMessage('Password must be at least 8 characters long')
-    .matches(/\d/)
-    .withMessage('Password must contain at least one number')
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*\-_=+;:,.]).{8,}$/)
     .withMessage('Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters')
 ], async (req, res) => {
@@ -259,7 +255,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false}), [
     };
 
     if (req.body.Email) {
-      updateFields.Password = req.body.Email;
+      updateFields.Email = req.body.Email;
     }
     
     // Only add password if it exists in the request
@@ -345,7 +341,7 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false}), 
 });
 
 // listen for requests
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
   console.log('Listening on port ' + port);
 });
