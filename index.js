@@ -173,8 +173,16 @@ Expected JSON format
 app.post('/users', [
   check('Username', 'Username is required and must be at least 5 characters long.').isLength({min: 5}),
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-  check('Password', 'Password is required').not().isEmpty(),
-  check('Email', 'Email does not appear to be valid').isEmail()
+  // check('Password', 'Password is required').not().isEmpty(),
+  // check('Email', 'Email does not appear to be valid').isEmail(),
+  check('Email').isEmail().withMessage('Email does not have a valid format'),
+  check('Password')
+    .isLength({ min: 8 })
+    .withMessage('Password must be at least 8 characters long')
+    .matches(/\d/)
+    .withMessage('Password must contain at least one number')
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*\-_=+;:,.]).{8,}$/)
+    .withMessage('Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters')
 ], async (req, res) => {
   // check the validation object for errors
   let errors = validationResult(req);
@@ -230,11 +238,11 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false}), [
     .withMessage('Password must be at least 8 characters long')
     .matches(/\d/)
     .withMessage('Password must contain at least one number')
-    .matches(/[!@#$%^&*]/)
-    .withMessage('Password must contain at least one special character')
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*\-_=+;:,.]).{8,}$/)
+    .withMessage('Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters')
 ], async (req, res) => {
-  // Check if same user as logged in
-  if (req.user.Username !== req.params.Username) {
+  // Check if same user as logged in or is Nico
+  if (req.user.Username !== req.params.Username && req.user.Username !== 'nicovece') {
     return res.status(400).send('Permission denied');
   }
   
@@ -280,8 +288,8 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false}), [
 // Allow users to add a movie to their list of favorites
 
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false}), async (req, res) => {
-  // Check if same user as logged in
-  if (req.user.Username !== req.params.Username) {
+  // Check if same user as logged in or is Nico
+  if (req.user.Username !== req.params.Username && req.user.Username !== 'nicovece') {
     return res.status(400).send('Permission denied');
   }
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
@@ -299,8 +307,8 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
 
 // Allow users to remove a movie from their list of favorites
 app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false}), async (req, res) => {
-  // Check if same user as logged in
-  if (req.user.Username !== req.params.Username) {
+  // Check if same user as logged in or is Nico
+  if (req.user.Username !== req.params.Username && req.user.Username !== 'nicovece') {
     return res.status(400).send('Permission denied');
   }
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
@@ -318,8 +326,8 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
 
 // Allow existing users to deregister
 app.delete('/users/:Username', passport.authenticate('jwt', { session: false}), async (req, res) => {
-  // Check if same user as logged in
-  if (req.user.Username !== req.params.Username) {
+  // Check if same user as logged in or is Nico
+  if (req.user.Username !== req.params.Username && req.user.Username !== 'nicovece') {
     return res.status(400).send('Permission denied');
   }
   await Users.findOneAndDelete({ Username: req.params.Username })
