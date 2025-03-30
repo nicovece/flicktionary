@@ -352,22 +352,25 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
 
 // Allow existing users to deregister
 app.delete('/users/:Username', passport.authenticate('jwt', { session: false}), async (req, res) => {
+  const { Username } = req.params;
   // Check if same user as logged in or is Nico
-  if (req.user.Username !== req.params.Username && req.user.Username !== 'nicovece') {
+  if (req.user.Username !== Username && req.user.Username !== 'nicovece') {
     return res.status(400).send('Permission denied');
   }
-  await Users.findOneAndDelete({ Username: req.params.Username })
-    .then((user) => {
-      if (!user) {
-        res.status(400).send(req.params.Username + ' was not found');
-      } else {
-        res.status(200).send('User with username "' + req.params.Username + ' " successfully removed.');
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
+  try {
+    // Check if user exists
+    const user = await Users.findOne({ Username: Username });
+    if (!user) {
+      return res.status(404).send('User ' + Username + ' was not found');
+    }
+
+    // Delete the user
+    await Users.findOneAndDelete({ Username: Username });
+    res.status(200).send('User with username "' + Username + '" successfully removed.');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  }
 });
 
 // listen for requests
