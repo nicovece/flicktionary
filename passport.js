@@ -47,11 +47,15 @@ passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.JWT_SECRET
 }, async (jwtPayload, callback) => {
-  return await Users.findOne({ Username: jwtPayload.subject })
+  console.log('JWT Payload:', jwtPayload);
+  console.log('JWT Secret:', process.env.JWT_SECRET);
+  return await Users.findOne({ Username: jwtPayload.Username })
     .then((user) => {
+      console.log('Found user:', user ? 'Yes' : 'No');
       return callback(null, user);
     })
     .catch((error) => {
+      console.log('Error finding user:', error);
       return callback(error)
     });
 }));
