@@ -67,6 +67,12 @@ body.homepage .flicktionary__logo {
   position: absolute;
 }
 
+section:not(.description) {
+  margin-top: 4rem;
+  padding-top: 4rem;
+  border-top: 1px solid hsl(270, 50%, 30%);
+}
+
 /* Table */
 table {
   width: 100%;
@@ -99,6 +105,12 @@ th {
 table td p {
   margin: 0 0 1em 0;
 }
+
+table td ul {
+  margin: 0 0 1em 0;
+  padding-left: 0;
+}
+
 table td pre {
   margin: 1em 0 0 0;
   font-size: 0.875rem;
@@ -171,7 +183,9 @@ table td pre:only-child {
   th:nth-child(5),
   td:nth-child(5),
   th:nth-child(6),
-  td:nth-child(6) {
+  td:nth-child(6),
+  th:nth-child(7),
+  td:nth-child(7) {
     width: 20%;
   }
 }

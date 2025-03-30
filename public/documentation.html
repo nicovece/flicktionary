@@ -7,9 +7,6 @@
   <link rel="icon" type="image/x-icon" href="./favicon.ico">
   <link href="./css/styles.min.css" rel="stylesheet" type="text/css" />
   <title>F L I C K T I O N A R Y - A dictionary for flicks</title>
-  <style>
-
-  </style>
 </head>
 
 <body>
@@ -99,29 +96,58 @@
       </p>
     </section>
 
-    <table role="table">
-      <thead role="rowgroup">
-        <tr role="row">
-          <th role="columnheader">Business Logic</th>
-          <th role="columnheader">URL</th>
-          <th role="columnheader">HTTP Method</th>
-          <th role="columnheader">Query Parameters</th>
-          <th role="columnheader">Request body data format</th>
-          <th role="columnheader">Response body data format</th>
-        </tr>
-      </thead>
-      <tbody role="rowgroup">
-        <tr role="row">
-          <td role="cell" data-label="Business Logic">Return a list of ALL movies</td>
-          <td role="cell" data-label="URL">/movies</td>
-          <td role="cell" data-label="HTTP Method">GET</td>
-          <td role="cell" data-label="Query Parameters">None</td>
-          <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">
-            <p>A JSON object holding data about all the movies</p>
-            <pre>Status: 200 OK</pre>
-            <pre>Content-Type: application/json</pre>
-            <pre class="code-block">
+    <section class="authentication">
+      <h3>Authentication</h3>
+      <p>Most endpoints require JWT (JSON Web Token) authentication. Include the JWT token in the Authorization header
+        of your requests:</p>
+      <pre>Authorization: Bearer &lt;your_jwt_token&gt;</pre>
+    </section>
+
+    <section class="security_features">
+      <h3>Security Features</h3>
+      <ul>
+        <li>CORS enabled for all origins</li>
+        <li>Security headers implemented:
+          <ul>
+            <li>X-Content-Type-Options: nosniff</li>
+            <li>X-Frame-Options: DENY</li>
+            <li>X-XSS-Protection: 1; mode=block</li>
+          </ul>
+        </li>
+        <li>Password hashing for user credentials</li>
+        <li>JWT-based authentication</li>
+      </ul>
+    </section>
+
+    <section class="endpoints">
+      <h3>API Endpoints Reference</h3>
+      <p>Below is a comprehensive list of all available endpoints, their requirements, and expected responses.</p>
+
+      <table role="table">
+        <thead role="rowgroup">
+          <tr role="row">
+            <th role="columnheader">Business Logic</th>
+            <th role="columnheader">URL</th>
+            <th role="columnheader">HTTP Method</th>
+            <th role="columnheader">Authentication</th>
+            <th role="columnheader">Query Parameters</th>
+            <th role="columnheader">Request body data format</th>
+            <th role="columnheader">Response body data format</th>
+          </tr>
+        </thead>
+        <tbody role="rowgroup">
+          <tr role="row">
+            <td role="cell" data-label="Business Logic">Return a list of ALL movies</td>
+            <td role="cell" data-label="URL">/movies</td>
+            <td role="cell" data-label="HTTP Method">GET</td>
+            <td role="cell" data-label="Authentication">Required</td>
+            <td role="cell" data-label="Query Parameters">None</td>
+            <td role="cell" data-label="Request body data format">None</td>
+            <td role="cell" data-label="Response body data format">
+              <p>A JSON object holding data about all the movies</p>
+              <pre>Status: 200 OK</pre>
+              <pre>Content-Type: application/json</pre>
+              <pre class="code-block">
 Example:
 [
   {
@@ -140,23 +166,23 @@ Example:
     },
     ImagePath: '...',
     Featured: true
-  },
-  ...
+  }
 ]
             </pre>
-          </td>
-        </tr>
-        <tr role="row">
-          <td role="cell" data-label="Business Logic">Returns data about a single movie by title.</td>
-          <td role="cell" data-label="URL">/movies/:Title</td>
-          <td role="cell" data-label="HTTP Method">GET</td>
-          <td role="cell" data-label="Query Parameters">Title (string)<br><i>The title of the movie</i></td>
-          <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">
-            <p>A JSON object holding data about a single movie.</p>
-            <pre>Status: 200 OK</pre>
-            <pre>Content-Type: application/json</pre>
-            <pre class="code-block">
+            </td>
+          </tr>
+          <tr role="row">
+            <td role="cell" data-label="Business Logic">Returns data about a single movie by title.</td>
+            <td role="cell" data-label="URL">/movies/:Title</td>
+            <td role="cell" data-label="HTTP Method">GET</td>
+            <td role="cell" data-label="Authentication">Required</td>
+            <td role="cell" data-label="Query Parameters">Title (string)<br><i>The title of the movie</i></td>
+            <td role="cell" data-label="Request body data format">None</td>
+            <td role="cell" data-label="Response body data format">
+              <p>A JSON object holding data about a single movie.</p>
+              <pre>Status: 200 OK</pre>
+              <pre>Content-Type: application/json</pre>
+              <pre class="code-block">
 Example:
 {
   _id: ObjectId('67e06937dd46a81da532279c'),
@@ -176,38 +202,40 @@ Example:
   Featured: true
 }
             </pre>
-          </td>
-        </tr>
-        <tr role="row">
-          <td role="cell" data-label="Business Logic">Returns data about a genre by name.</td>
-          <td role="cell" data-label="URL">/movies/genre/:genreName</td>
-          <td role="cell" data-label="HTTP Method">GET</td>
-          <td role="cell" data-label="Query Parameters">genreName (string)<br><i>The name of the genre</i></td>
-          <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">
-            <p>A JSON object holding data about a single genre.</p>
-            <pre>Status: 200 OK</pre>
-            <pre>Content-Type: application/json</pre>
-            <pre class="code-block">
+            </td>
+          </tr>
+          <tr role="row">
+            <td role="cell" data-label="Business Logic">Returns data about a genre by name.</td>
+            <td role="cell" data-label="URL">/movies/genre/:genreName</td>
+            <td role="cell" data-label="HTTP Method">GET</td>
+            <td role="cell" data-label="Authentication">Required</td>
+            <td role="cell" data-label="Query Parameters">genreName (string)<br><i>The name of the genre</i></td>
+            <td role="cell" data-label="Request body data format">None</td>
+            <td role="cell" data-label="Response body data format">
+              <p>A JSON object holding data about a single genre.</p>
+              <pre>Status: 200 OK</pre>
+              <pre>Content-Type: application/json</pre>
+              <pre class="code-block">
 Example:
 {
   "Name": "Fantasy",
   "Description": "Movies that explore ..."
 }
             </pre>
-          </td>
-        </tr>
-        <tr role="row">
-          <td role="cell" data-label="Business Logic">Returns data about a director by name.</td>
-          <td role="cell" data-label="URL">/movies/director/:directorName</td>
-          <td role="cell" data-label="HTTP Method">GET</td>
-          <td role="cell" data-label="Query Parameters">directorName (string)<br><i>The name of the director</i></td>
-          <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">
-            <p>A JSON object holding data about a single movie.</p>
-            <pre>Status: 200 OK</pre>
-            <pre>Content-Type: application/json</pre>
-            <pre class="code-block">
+            </td>
+          </tr>
+          <tr role="row">
+            <td role="cell" data-label="Business Logic">Returns data about a director by name.</td>
+            <td role="cell" data-label="URL">/movies/director/:directorName</td>
+            <td role="cell" data-label="HTTP Method">GET</td>
+            <td role="cell" data-label="Authentication">Required</td>
+            <td role="cell" data-label="Query Parameters">directorName (string)<br><i>The name of the director</i></td>
+            <td role="cell" data-label="Request body data format">None</td>
+            <td role="cell" data-label="Response body data format">
+              <p>A JSON object holding data about a single movie.</p>
+              <pre>Status: 200 OK</pre>
+              <pre>Content-Type: application/json</pre>
+              <pre class="code-block">
 Example:
 {
   "Name": "Daniel Young",
@@ -216,207 +244,232 @@ Example:
   "Death": null
 }
             </pre>
-          </td>
-        </tr>
-        <tr role="row">
-          <td role="cell" data-label="Business Logic">Returns a list of all users.</td>
-          <td role="cell" data-label="URL">/users</td>
-          <td role="cell" data-label="HTTP Method">GET</td>
-          <td role="cell" data-label="Query Parameters">None</td>
-          <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">A JSON object holding data about a single movie.
-            <p>A JSON object holding data about all the users.</p>
-            <pre>Status: 200 OK</pre>
-            <pre>Content-Type: application/json</pre>
-            <pre class="code-block">
+            </td>
+          </tr>
+          <tr role="row">
+            <td role="cell" data-label="Business Logic">Returns a list of all users.</td>
+            <td role="cell" data-label="URL">/users</td>
+            <td role="cell" data-label="HTTP Method">GET</td>
+            <td role="cell" data-label="Authentication">Required</td>
+            <td role="cell" data-label="Query Parameters">None</td>
+            <td role="cell" data-label="Request body data format">None</td>
+            <td role="cell" data-label="Response body data format">
+              <p>A JSON object holding data about all the users.</p>
+              <pre>Status: 200 OK</pre>
+              <pre>Content-Type: application/json</pre>
+              <pre class="code-block">
 Example:
 [
   {
     _id: ObjectId('67e3ee6ec963a7641fc ...'),
     Username: 'john_doe',
-    Password: 'password123',
     Email: 'john.doe@example.com',
     Birthday: ISODate('1990-05-15T00 ...'),
-    FavoriteMovies: []
-  },
-  {
-    _id: ObjectId('67e3ee6ec963a7641fc ...'),
-    Username: 'jane_smith',
-    Password: 'securePass456',
-    Email: 'jane.smith@example.com',
-    Birthday: ISODate('1985-11-20T00 ...'),
     FavoriteMovies: []
   }
 ]
             </pre>
-          </td>
-        </tr>
-        <tr role="row">
-          <td role="cell" data-label="Business Logic">Returns data about a single user by Username.</td>
-          <td role="cell" data-label="URL">/users/:Username</td>
-          <td role="cell" data-label="HTTP Method">GET</td>
-          <td role="cell" data-label="Query Parameters">Username (string)<br><i>The Username of the user</i></td>
-          <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">
-            <p>A JSON object holding data about a single user.</p>
-            <pre>Status: 200 OK</pre>
-            <pre>Content-Type: application/json</pre>
-            <pre class="code-block">
+            </td>
+          </tr>
+          <tr role="row">
+            <td role="cell" data-label="Business Logic">Returns data about a single user by Username.</td>
+            <td role="cell" data-label="URL">/users/:Username</td>
+            <td role="cell" data-label="HTTP Method">GET</td>
+            <td role="cell" data-label="Authentication">Required</td>
+            <td role="cell" data-label="Query Parameters">Username (string)<br><i>The Username of the user</i></td>
+            <td role="cell" data-label="Request body data format">None</td>
+            <td role="cell" data-label="Response body data format">
+              <p>A JSON object holding data about a single user.</p>
+              <pre>Status: 200 OK</pre>
+              <pre>Content-Type: application/json</pre>
+              <pre class="code-block">
 Example:
 {
   _id: ObjectId('67e3ee6ec963a7641fc ...'),
   Username: 'john_doe',
-  Password: 'password123',
   Email: 'john.doe@example.com',
   Birthday: ISODate('1990-05-15T00 ...'),
-  FavoriteMovies: [ ... ]
-},
+  FavoriteMovies: []
+}
             </pre>
-          </td>
-        </tr>
-        <tr role="row">
-          <td role="cell" data-label="Business Logic">Allows new users registration.</td>
-          <td role="cell" data-label="URL">/users/</td>
-          <td role="cell" data-label="HTTP Method">POST</td>
-          <td role="cell" data-label="Query Parameters">None</td>
-          <td role="cell" data-label="Request body data format">
-            <pre class="code-block">
+            </td>
+          </tr>
+          <tr role="row">
+            <td role="cell" data-label="Business Logic">Allows new users registration.</td>
+            <td role="cell" data-label="URL">/users</td>
+            <td role="cell" data-label="HTTP Method">POST</td>
+            <td role="cell" data-label="Authentication">Not Required</td>
+            <td role="cell" data-label="Query Parameters">None</td>
+            <td role="cell" data-label="Request body data format">
+              <pre class="code-block">
 Expected JSON format:
 {
-  ID: Integer,
   Username: String,
   Password: String,
   Email: String,
   Birthday: Date
 }
             </pre>
-          </td>
-          <td role="cell" data-label="Response body data format">
-            <p>A JSON object holding data about the created user.</p>
-            <pre>Status: 200 OK</pre>
-            <pre>Content-Type: application/json</pre>
-            <pre class="code-block">
+              <div class="validation-rules">
+                <strong>Validation Rules:</strong>
+                <ul>
+                  <li>Username:
+                    <ul>
+                      <li>Must be at least 5 characters long</li>
+                      <li>Must contain only alphanumeric characters</li>
+                    </ul>
+                  </li>
+                  <li>Password:
+                    <ul>
+                      <li>Must be at least 8 characters long</li>
+                      <li>Must contain uppercase and lowercase letters</li>
+                      <li>Must contain numbers</li>
+                      <li>Must contain special characters (!@#$%^&*-_=+;:,.)</li>
+                    </ul>
+                  </li>
+                  <li>Email must be in valid format</li>
+                </ul>
+              </div>
+            </td>
+            <td role="cell" data-label="Response body data format">
+              <p>A JSON object holding data about the created user.</p>
+              <pre>Status: 201 Created</pre>
+              <pre>Content-Type: application/json</pre>
+              <pre class="code-block">
 Example:
 {
   _id: ObjectId('67e3ee6ec963a7641fc66bb6'),
   Username: 'john_doe',
-  Password: 'password123',
   Email: 'john.doe@example.com',
   Birthday: ISODate('1990-05-15T00:00:00.000Z'),
   FavoriteMovies: []
 }
             </pre>
-          </td>
-        </tr>
-        <tr role="row">
-          <td role="cell" data-label="Business Logic">Allows users to update their user info.</td>
-          <td role="cell" data-label="URL">/users/:id</td>
-          <td role="cell" data-label="HTTP Method">PUT</td>
-          <td role="cell" data-label="Query Parameters">id (number)<br><i>The ID of the user</i></td>
-          <td role="cell" data-label="Request body data format">
-            <pre class="code-block">
+            </td>
+          </tr>
+          <tr role="row">
+            <td role="cell" data-label="Business Logic">Allows users to update their user info.</td>
+            <td role="cell" data-label="URL">/users/:Username</td>
+            <td role="cell" data-label="HTTP Method">PUT</td>
+            <td role="cell" data-label="Authentication">Required</td>
+            <td role="cell" data-label="Query Parameters">Username (string)<br><i>The Username of the user</i></td>
+            <td role="cell" data-label="Request body data format">
+              <pre class="code-block">
 Expected JSON format:
 {
-  ID: Integer,
   Username: String,
   Password: String,
   Email: String,
   Birthday: Date
 }
             </pre>
-          </td>
-          <td role="cell" data-label="Response body data format">
-            <p>A JSON object holding data about the updated user.</p>
-            <pre>Status: 200 OK</pre>
-            <pre>Content-Type: application/json</pre>
-            <pre class="code-block">
+              <div class="validation-rules">
+                <strong>Validation Rules:</strong> Same as registration
+              </div>
+              <p><strong>Permission:</strong> Users can only update their own profile</p>
+            </td>
+            <td role="cell" data-label="Response body data format">
+              <p>A JSON object holding data about the updated user.</p>
+              <pre>Status: 200 OK</pre>
+              <pre>Content-Type: application/json</pre>
+              <pre class="code-block">
 Example:
 {
   _id: ObjectId('67e3ee6ec963a7641fc66bb6'),
   Username: 'john_doe',
-  Password: 'password123',
   Email: 'john.doe@example.com',
   Birthday: ISODate('1990-05-15T00:00:00.000Z'),
   FavoriteMovies: []
 }
             </pre>
-          </td>
-        </tr>
-        <tr role="row">
-          <td role="cell" data-label="Business Logic">Allows users to add a movie to their list of favorites.</td>
-          <td role="cell" data-label="URL">/users/:Username/movies/:MovieID</td>
-          <td role="cell" data-label="HTTP Method">PUT</td>
-          <td role="cell" data-label="Query Parameters">
-            <p>Username (string)<br><i>The Username of the user.</i></p>
-            <p>MovieID (number)<br><i>The ID of the movie.</i></p>
-          </td>
-          <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">
-            <p>A message confirming the movie has been added to the user's list of favorites.</p>
-            <pre>Status: 200 OK</pre>
-            <pre>Content-Type: text/plain</pre>
-            <pre class="code-block">
+            </td>
+          </tr>
+          <tr role="row">
+            <td role="cell" data-label="Business Logic">Allows users to add a movie to their list of favorites.</td>
+            <td role="cell" data-label="URL">/users/:Username/movies/:MovieID</td>
+            <td role="cell" data-label="HTTP Method">POST</td>
+            <td role="cell" data-label="Authentication">Required</td>
+            <td role="cell" data-label="Query Parameters">
+              <p>Username (string)<br><i>The Username of the user.</i></p>
+              <p>MovieID (string)<br><i>The ID of the movie.</i></p>
+            </td>
+            <td role="cell" data-label="Request body data format">None</td>
+            <td role="cell" data-label="Response body data format">
+              <p>A JSON object holding the updated user data.</p>
+              <pre>Status: 200 OK</pre>
+              <pre>Content-Type: application/json</pre>
+              <pre class="code-block">
 Example:
 {
   "_id": "67e3ee6ec963a7641fc66bb6",
   "Username": "john_doe",
-  "Password": "password123",
   "Email": "john.doe@example.com",
   "Birthday": "1990-05-15T00:00:00.000Z",
-  "FavoriteMovies": [
-      "67e06937dd46a81da53227a3",
-      "67e06937dd46a81da53227a4"
-  ]
+  "FavoriteMovies": ["67e06937dd46a81da53227a3", "67e06937dd46a81da53227a4"]
 }
             </pre>
-          </td>
-        </tr>
-        <tr role="row">
-          <td role="cell" data-label="Business Logic">Allows users to remove a movie from their list of favorites.</td>
-          <td role="cell" data-label="URL">/users/:Username/movies/:MovieID</td>
-          <td role="cell" data-label="HTTP Method">DELETE</td>
-          <td role="cell" data-label="Path Parameters">
-            <p>Username (string)<br><i>The Username of the user.</i></p>
-            <p>MovieID (number)<br><i>The ID of the movie.</i></p>
-          </td>
-          <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">
-            <p>A message confirming the movie has been removed from the user's list of favorites.</p>
-            <pre>Status: 200 OK</pre>
-            <pre>Content-Type: text/plain</pre>
-            <pre class="code-block">
+              <p><strong>Permission:</strong> Users can only add to their own favorites</p>
+            </td>
+          </tr>
+          <tr role="row">
+            <td role="cell" data-label="Business Logic">Allows users to remove a movie from their list of favorites.
+            </td>
+            <td role="cell" data-label="URL">/users/:Username/movies/:MovieID</td>
+            <td role="cell" data-label="HTTP Method">DELETE</td>
+            <td role="cell" data-label="Authentication">Required</td>
+            <td role="cell" data-label="Query Parameters">
+              <p>Username (string)<br><i>The Username of the user.</i></p>
+              <p>MovieID (string)<br><i>The ID of the movie.</i></p>
+            </td>
+            <td role="cell" data-label="Request body data format">None</td>
+            <td role="cell" data-label="Response body data format">
+              <p>A JSON object holding the updated user data.</p>
+              <pre>Status: 200 OK</pre>
+              <pre>Content-Type: application/json</pre>
+              <pre class="code-block">
 Example:
 {
   "_id": "67e3ee6ec963a7641fc66bb6",
   "Username": "john_doe",
-  "Password": "password123",
   "Email": "john.doe@example.com",
   "Birthday": "1990-05-15T00:00:00.000Z",
-  "FavoriteMovies": [
-      "67e06937dd46a81da53227a3"
-  ]
+  "FavoriteMovies": ["67e06937dd46a81da53227a3"]
 }
             </pre>
-          </td>
-        </tr>
-        <tr role="row">
-          <td role="cell" data-label="Business Logic">Allows existing users to deregister.</td>
-          <td role="cell" data-label="URL">/users/:Username</td>
-          <td role="cell" data-label="HTTP Method">DELETE</td>
-          <td role="cell" data-label="Path Parameters">Username (string)<br><i>The Username of the user.</i></td>
-          <td role="cell" data-label="Request body data format">None</td>
-          <td role="cell" data-label="Response body data format">
-            <p>A message confirming the user has been removed.</p>
-            <pre>Status: 200 OK</pre>
-            <pre>Content-Type: text/plain</pre>
-            <pre class="code-block">
+              <p><strong>Permission:</strong> Users can only remove from their own favorites</p>
+            </td>
+          </tr>
+          <tr role="row">
+            <td role="cell" data-label="Business Logic">Allows existing users to deregister.</td>
+            <td role="cell" data-label="URL">/users/:Username</td>
+            <td role="cell" data-label="HTTP Method">DELETE</td>
+            <td role="cell" data-label="Authentication">Required</td>
+            <td role="cell" data-label="Query Parameters">Username (string)<br><i>The Username of the user.</i></td>
+            <td role="cell" data-label="Request body data format">None</td>
+            <td role="cell" data-label="Response body data format">
+              <p>A message confirming the user has been removed.</p>
+              <pre>Status: 200 OK</pre>
+              <pre>Content-Type: text/plain</pre>
+              <pre class="code-block">
 Example:
 User with username "Username" successfully removed
             </pre>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              <p><strong>Permission:</strong> Users can only delete their own account</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="error-responses">
+      <h3>Error Responses</h3>
+      <p>The API may return the following error responses:</p>
+      <ul>
+        <li><strong>400 Bad Request</strong>: Invalid request parameters or permission denied</li>
+        <li><strong>404 Not Found</strong>: Resource not found</li>
+        <li><strong>422 Unprocessable Entity</strong>: Validation errors</li>
+        <li><strong>500 Internal Server Error</strong>: Server-side errors</li>
+      </ul>
+    </section>
   </main>
   <footer>
     <h5> F L I C K T I O N A R Y - &copy; <span class="currentYear"></span></h5>
