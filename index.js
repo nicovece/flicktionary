@@ -47,7 +47,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'https://flicktionary.onrender.com'];
+let allowedOrigins = ['http://localhost:8080', 'https://flicktionary.onrender.com', 'http://localhost:1234'];
 
 app.use(cors({
   origin: '*', // Allow all origins
@@ -90,7 +90,7 @@ app.get('/', (req, res) => {
 // Movies endpoints
 
 // Return a list of ALL movies to the user
-app.get('/movies', passport.authenticate('jwt', { session: false}), async (req, res) => {
+app.get('/movies', async (req, res) => {
   try {
     const movies = await Movies.find();
     if (!movies || movies.length === 0) {
