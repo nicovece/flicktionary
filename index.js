@@ -156,6 +156,46 @@ app.get('/movies/director/:directorName', passport.authenticate('jwt', { session
   }
 });
 
+// Search for movies based on various criteria
+app.get('/movies/search', passport.authenticate('jwt', { session: false}), async (req, res) => {
+  try {
+    const { title, genre, director, actor, featured } = req.query;
+    let query = {};
+    
+    // Build query based on provided parameters
+    if (title) {
+      query.Title = { $regex: title, $options: 'i' }; // Case-insensitive search
+    }
+    
+    if (genre) {
+      query['Genre.Name'] = { $regex: genre, $options: 'i' };
+    }
+    
+    if (director) {
+      query['Director.Name'] = { $regex: director, $options: 'i' };
+    }
+    
+    if (actor) {
+      query.Actors = { $regex: actor, $options: 'i' };
+    }
+    
+    if (featured !== undefined) {
+      query.Featured = featured === 'true';
+    }
+    
+    const movies = await Movies.find(query);
+    
+    if (!movies || movies.length === 0) {
+      return res.status(404).send('No movies found matching your search criteria');
+    }
+    
+    res.status(200).json(movies);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  }
+});
+
 //Users endpoints
 
 // Get all users
