@@ -157,7 +157,7 @@ app.get('/movies/director/:directorName', passport.authenticate('jwt', { session
 });
 
 // Search for movies based on various criteria
-app.get('/movies/search', passport.authenticate('jwt', { session: false}), async (req, res) => {
+app.get('/search', passport.authenticate('jwt', { session: false}), async (req, res) => {
   try {
     const { title, genre, director, actor, featured } = req.query;
     let query = {};
