@@ -159,28 +159,40 @@ app.get('/movies/director/:directorName', passport.authenticate('jwt', { session
 // Search for movies based on various criteria
 app.get('/search', passport.authenticate('jwt', { session: false}), async (req, res) => {
   try {
-    const { title, genre, director, actor, featured } = req.query;
+    const { title, genre, director, actor, featured, q } = req.query;
     let query = {};
     
-    // Build query based on provided parameters
-    if (title) {
-      query.Title = { $regex: title, $options: 'i' }; // Case-insensitive search
-    }
-    
-    if (genre) {
-      query['Genre.Name'] = { $regex: genre, $options: 'i' };
-    }
-    
-    if (director) {
-      query['Director.Name'] = { $regex: director, $options: 'i' };
-    }
-    
-    if (actor) {
-      query.Actors = { $regex: actor, $options: 'i' };
-    }
-    
-    if (featured !== undefined) {
-      query.Featured = featured === 'true';
+    // If a general search query 'q' is provided, search across multiple fields
+    if (q) {
+      query = {
+        $or: [
+          { Title: { $regex: q, $options: 'i' } },
+          { 'Genre.Name': { $regex: q, $options: 'i' } },
+          { 'Director.Name': { $regex: q, $options: 'i' } },
+          { Actors: { $regex: q, $options: 'i' } }
+        ]
+      };
+    } else {
+      // Build query based on specific parameters
+      if (title) {
+        query.Title = { $regex: title, $options: 'i' }; // Case-insensitive search
+      }
+      
+      if (genre) {
+        query['Genre.Name'] = { $regex: genre, $options: 'i' };
+      }
+      
+      if (director) {
+        query['Director.Name'] = { $regex: director, $options: 'i' };
+      }
+      
+      if (actor) {
+        query.Actors = { $regex: actor, $options: 'i' };
+      }
+      
+      if (featured !== undefined) {
+        query.Featured = featured === 'true';
+      }
     }
     
     const movies = await Movies.find(query);
