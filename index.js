@@ -50,7 +50,7 @@ const cors = require('cors');
 let allowedOrigins = ['http://localhost:8080', 'https://flicktionary.onrender.com', 'http://localhost:1234', 'https://flicktionary.netlify.app'];
 
 app.use(cors({
-      origin: function(origin, callback) {
+  origin: function(origin, callback) {
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
       let msg = 'The CORS policy for this site does not allow access from the specified Origin.';
@@ -60,7 +60,8 @@ app.use(cors({
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
-  maxAge: 86400 // Cache preflight requests for 24 hours
+  maxAge: 86400, // Cache preflight requests for 24 hours
+  credentials: true // Allow credentials
 }));
 
 // Add security headers
