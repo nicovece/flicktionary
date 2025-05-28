@@ -47,7 +47,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'https://flicktionary.onrender.com', 'http://localhost:1234', 'https://flicktionary.netlify.app'];
+let allowedOrigins = ['http://localhost:8080', 'https://flicktionary.onrender.com', 'http://localhost:1234', 'http://localhost:4200/', 'https://flicktionary.netlify.app'];
 
 app.use(cors({
   origin: function(origin, callback) {
