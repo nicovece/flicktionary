@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+
+/**
+ * @typedef {Object} Movie
+ * @property {string} Title - Movie title (required)
+ * @property {string} Description - Movie description (required)
+ * @property {Object} Genre - Genre object
+ * @property {string} Genre.Name - Genre name
+ * @property {string} Genre.Description - Genre description
+ * @property {Object} Director - Director object
+ * @property {string} Director.Name - Director name
+ * @property {string} Director.Bio - Director biography
+ * @property {Array&lt;string>} Actors - List of actor names
+ * @property {string} ImagePath - Image URL/path
+ * @property {boolean} Featured - Featured flag
+ * @example
+ * {
+ *   Title: "The Silent Wave",
+ *   Description: "A dramatic tale of ...",
+ *   Genre: {
+ *     Name: "Drama",
+ *     Description: "Stories that portray ..."
+ *   },
+ *   Director: {
+ *     Name: "John Doe",
+ *     Bio: "John Doe is a celebrated filmmaker ..."
+ *   },
+ *   Actors: ["Jane Smith", "Bob Brown"],
+ *   ImagePath: "/images/silentwave.jpg",
+ *   Featured: true
+ * }
+ */
+let movieSchema = mongoose.Schema({
+  Title: {type: String, required: true},
+  Description: {type: String, required: true},
+  Genre: {
+    Name: String,
+    Description: String
+  },
+  Director: {
+    Name: String,
+    Bio: String
+  },
+  Actors: [String],
+  ImagePath: String,
+  Featured: Boolean
+});
+
+/**
+ * @typedef {Object} User
+ * @property {string} Username - User's username (required)
+ * @property {string} Password - User's hashed password (required)
+ * @property {string} Email - User's email (required)
+ * @property {Date} Birthday - User's birthday
+ * @property {Array&lt;ObjectId>} FavoriteMovies - Array of favorite Movie ObjectIds
+ * @example
+ * {
+ *   Username: "john_doe",
+ *   Password: "$2b$10$...hashed...",
+ *   Email: "john.doe@example.com",
+ *   Birthday: "1990-05-15T00:00:00.000Z",
+ *   FavoriteMovies: ["67e06937dd46a81da53227a3", "67e06937dd46a81da53227a4"]
+ * }
+ */
+let userSchema = mongoose.Schema({
+  Username: {type: String, required: true},
+  Password: {type: String, required: true},
+  Email: {type: String, required: true},
+  Birthday: Date,
+  FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
+});
+
+/**
+ * Hashes a password using bcrypt.
+ * @function
+ * @name hashPassword
+ * @param {string} password - The plain text password
+ * @returns {string} The hashed password
+ */
+userSchema.statics.hashPassword = (password) => {
+  return bcrypt.hashSync(password, 10);
+};
+
+/**
+ * Validates a password against the user's hashed password.
+ * @function
+ * @name validatePassword
+ * @param {string} password - The plain text password
+ * @returns {boolean} True if the password is valid, false otherwise
+ */
+userSchema.methods.validatePassword = function(password) {
+  return bcrypt.compareSync(password, this.Password);
+};
+
+let Movie = mongoose.model('Movie', movieSchema);
+let User = mongoose.model('User', userSchema);
+
+module.exports.Movie = Movie;
+module.exports.User = User;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddFavoriteMovie">AddFavoriteMovie</a></li><li><a href="global.html#DeleteUser">DeleteUser</a></li><li><a href="global.html#GetAllMovies">GetAllMovies</a></li><li><a href="global.html#GetAllUsers">GetAllUsers</a></li><li><a href="global.html#GetDirectorByName">GetDirectorByName</a></li><li><a href="global.html#GetGenreByName">GetGenreByName</a></li><li><a href="global.html#GetMovieByTitle">GetMovieByTitle</a></li><li><a href="global.html#GetRootPage">GetRootPage</a></li><li><a href="global.html#GetUserByUsername">GetUserByUsername</a></li><li><a href="global.html#RegisterUser">RegisterUser</a></li><li><a href="global.html#RemoveFavoriteMovie">RemoveFavoriteMovie</a></li><li><a href="global.html#SearchMovies">SearchMovies</a></li><li><a href="global.html#UpdateUser">UpdateUser</a></li><li><a href="global.html#hashPassword">hashPassword</a></li><li><a href="global.html#validatePassword">validatePassword</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Jun 03 2025 19:59:22 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

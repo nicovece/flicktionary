@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Global</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Global</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="DELETE/DeleteUser"><span class="type-signature"></span>DELETE / DeleteUser<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Deregisters (deletes) an existing user by username.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line659">line 659</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Response Example:
+User with username "Username" successfully removed</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="DELETE/RemoveFavoriteMovie"><span class="type-signature"></span>DELETE / RemoveFavoriteMovie<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Removes a movie from a user's list of favorites.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line602">line 602</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Response Example:
+{
+  "_id": "67e3ee6ec963a7641fc66bb6",
+  "Username": "john_doe",
+  "Email": "john.doe@example.com",
+  "Birthday": "1990-05-15T00:00:00.000Z",
+  "FavoriteMovies": ["67e06937dd46a81da53227a3"]
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="GET/GetAllMovies"><span class="type-signature"></span>GET / GetAllMovies<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns a list of all movies.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line100">line 100</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Response Example:
+[
+  {
+    "_id": "ObjectId('67e06937dd46a81da532279c')",
+    "Title": "The Silent Wave",
+    "Description": "A dramatic tale of ...",
+    "Genre": {
+      "Name": "Drama",
+      "Description": "Stories that portray ..."
+    },
+    "Director": {
+      "Name": "John Doe",
+      "Bio": "John Doe is a celebrated filmmaker ...",
+      "Birth": "1975-03-15",
+      "Death": null
+    },
+    "ImagePath": "...",
+    "Featured": true
+  }
+]</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="GET/GetAllUsers"><span class="type-signature"></span>GET / GetAllUsers<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns a list of all users.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line314">line 314</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Response Example:
+[
+  {
+    "_id": "ObjectId('67e3ee6ec963a7641fc ...')",
+    "Username": "john_doe",
+    "Email": "john.doe@example.com",
+    "Birthday": "ISODate('1990-05-15T00 ...')",
+    "FavoriteMovies": []
+  }
+]</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="GET/GetDirectorByName"><span class="type-signature"></span>GET / GetDirectorByName<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns data about a director by name.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line216">line 216</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Response Example:
+{
+  "Name": "Daniel Young",
+  "Bio": "Daniel Young is known for ...",
+  "Birth": "1988-08-30",
+  "Death": null
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="GET/GetGenreByName"><span class="type-signature"></span>GET / GetGenreByName<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns data about a genre by name.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line186">line 186</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Response Example:
+{
+  "Name": "Fantasy",
+  "Description": "Movies that explore ..."
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="GET/GetMovieByTitle"><span class="type-signature"></span>GET / GetMovieByTitle<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns data about a single movie by title.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line143">line 143</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Response Example:
+{
+  "_id": "ObjectId('67e06937dd46a81da532279c')",
+  "Title": "The Silent Wave",
+  "Description": "A dramatic tale of ...",
+  "Genre": {
+    "Name": "Drama",
+    "Description": "Stories that portray ..."
+  },
+  "Director": {
+    "Name": "John Doe",
+    "Bio": "John Doe is a celebrated filmmaker ...",
+    "Birth": "1975-03-15",
+    "Death": null
+  },
+  "ImagePath": "...",
+  "Featured": true
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="GET/GetRootPage"><span class="type-signature"></span>GET / GetRootPage<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Serves the root page (index.html).
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line84">line 84</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Request:
+GET /</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="GET/GetUserByUsername"><span class="type-signature"></span>GET / GetUserByUsername<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns data about a single user by username.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line347">line 347</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Response Example:
+{
+  "_id": "ObjectId('67e3ee6ec963a7641fc ...')",
+  "Username": "john_doe",
+  "Email": "john.doe@example.com",
+  "Birthday": "ISODate('1990-05-15T00 ...')",
+  "FavoriteMovies": []
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="GET/SearchMovies"><span class="type-signature"></span>GET / SearchMovies<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Searches for movies based on various criteria.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line248">line 248</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="POST/AddFavoriteMovie"><span class="type-signature"></span>POST / AddFavoriteMovie<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Adds a movie to a user's list of favorites.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line545">line 545</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Response Example:
+{
+  "_id": "67e3ee6ec963a7641fc66bb6",
+  "Username": "john_doe",
+  "Email": "john.doe@example.com",
+  "Birthday": "1990-05-15T00:00:00.000Z",
+  "FavoriteMovies": ["67e06937dd46a81da53227a3", "67e06937dd46a81da53227a4"]
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="POST/Login"><span class="type-signature"></span>POST / Login<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Authenticates a user and returns a JWT token.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="auth.js.html">auth.js</a>, <a href="auth.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Response Example:
+{
+  "user": {
+    "_id": "...",
+    "Username": "john_doe",
+    "Email": "john.doe@example.com",
+    ...
+  },
+  "token": "&lt;JWT_TOKEN>"
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="POST/RegisterUser"><span class="type-signature"></span>POST / RegisterUser<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Registers a new user.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line380">line 380</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Request example:
+{
+  "Username": "String",
+  "Password": "String",
+  "Email": "String",
+  "Birthday": "Date"
+}
+
+// Response Example:
+{
+  "_id": "ObjectId('67e3ee6ec963a7641fc66bb6')",
+  "Username": "john_doe",
+  "Email": "john.doe@example.com",
+  "Birthday": "ISODate('1990-05-15T00:00:00.000Z')",
+  "FavoriteMovies": []
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="PUT/UpdateUser"><span class="type-signature"></span>PUT / UpdateUser<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Updates user information by username.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line454">line 454</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Request example:
+{
+  "Username": "String",
+  "Password": "String",
+  "Email": "String",
+  "Birthday": "Date"
+}
+
+// Response Example:
+{
+  "_id": "ObjectId('67e3ee6ec963a7641fc66bb6')",
+  "Username": "john_doe",
+  "Email": "john.doe@example.com",
+  "Birthday": "ISODate('1990-05-15T00:00:00.000Z')",
+  "FavoriteMovies": []
+}</code></pre>
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="POST/generateJWTToken"><span class="type-signature"></span>POST / generateJWTToken<span class="signature">(user)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Generates a JWT token for a user.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>user</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The user object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="auth.js.html">auth.js</a>, <a href="auth.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The JWT token
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#DELETE/DeleteUser">DELETE / DeleteUser</a></li><li><a href="global.html#DELETE/RemoveFavoriteMovie">DELETE / RemoveFavoriteMovie</a></li><li><a href="global.html#GET/GetAllMovies">GET / GetAllMovies</a></li><li><a href="global.html#GET/GetAllUsers">GET / GetAllUsers</a></li><li><a href="global.html#GET/GetDirectorByName">GET / GetDirectorByName</a></li><li><a href="global.html#GET/GetGenreByName">GET / GetGenreByName</a></li><li><a href="global.html#GET/GetMovieByTitle">GET / GetMovieByTitle</a></li><li><a href="global.html#GET/GetRootPage">GET / GetRootPage</a></li><li><a href="global.html#GET/GetUserByUsername">GET / GetUserByUsername</a></li><li><a href="global.html#GET/SearchMovies">GET / SearchMovies</a></li><li><a href="global.html#POST/AddFavoriteMovie">POST / AddFavoriteMovie</a></li><li><a href="global.html#POST/Login">POST / Login</a></li><li><a href="global.html#POST/RegisterUser">POST / RegisterUser</a></li><li><a href="global.html#POST/generateJWTToken">POST / generateJWTToken</a></li><li><a href="global.html#PUT/UpdateUser">PUT / UpdateUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Jun 03 2025 20:56:29 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
