@@ -2,8 +2,6 @@ const express = require('express'),
   morgan = require('morgan'),
   fs = require('fs'),
   path = require('path'),
-  bodyParser = require('body-parser'),
-  uuid = require('uuid'),
   mongoose = require('mongoose'),
   dotenv = require('dotenv'),
   {check, validationResult} = require('express-validator');
@@ -36,7 +34,7 @@ app.use(morgan('combined', { stream: accessLogStream }));
 app.use(express.static('public'));
 
 // parse request body
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 
 // CORS
