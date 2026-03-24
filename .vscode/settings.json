@@ -1,3 +1,4 @@
 {
-  "autominify.enableHTMLMinification": false
+  "autominify.enableHTMLMinification": false,
+  "snyk.advanced.autoSelectOrganization": true
 }

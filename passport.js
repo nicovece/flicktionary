@@ -25,9 +25,8 @@ passport.use(
           });
         }
         if (!user.validatePassword(password)) {
-          console.log('incorrect password');
           return callback(null, false, {
-            message: 'Incorrect password.',
+            message: 'Incorrect username or password.',
           });
         }
         return callback(null, user);
@@ -47,11 +46,8 @@ passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.JWT_SECRET
 }, async (jwtPayload, callback) => {
-  console.log('JWT Payload:', jwtPayload);
-  console.log('JWT Secret:', process.env.JWT_SECRET);
   return await Users.findOne({ Username: jwtPayload.Username })
     .then((user) => {
-      console.log('Found user:', user ? 'Yes' : 'No');
       return callback(null, user);
     })
     .catch((error) => {
