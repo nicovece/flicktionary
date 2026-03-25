@@ -12,3 +12,5 @@ log.txt
 out/
 
 *.min.js
+
+.prd/
