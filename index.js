@@ -14,6 +14,8 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || '';
+
 
 /* local connection */
 // mongoose.connect('mongodb://localhost:27017/flicktionary');
@@ -127,7 +129,16 @@ app.get('/', (req, res) => {
  */
 app.get('/movies', passport.authenticate('jwt', { session: false}), async (req, res) => {
   try {
-    const movies = await Movies.find();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 0;
+    const skip = limit > 0 ? (page - 1) * limit : 0;
+
+    let query = Movies.find();
+    if (limit > 0) {
+      query = query.skip(skip).limit(limit);
+    }
+
+    const movies = await query;
     if (!movies || movies.length === 0) {
       return res.status(404).send('No movies found');
     }
@@ -331,7 +342,16 @@ app.get('/search', passport.authenticate('jwt', { session: false}), async (req, 
  */
 app.get('/users', passport.authenticate('jwt', { session: false}), async (req, res) => {
   try {
-    const users = await Users.find();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 0;
+    const skip = limit > 0 ? (page - 1) * limit : 0;
+
+    let query = Users.find();
+    if (limit > 0) {
+      query = query.skip(skip).limit(limit);
+    }
+
+    const users = await query;
     if (!users || users.length === 0) {
       return res.status(404).send('No users found');
     }
@@ -494,8 +514,8 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false}), [
     .withMessage('Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters')
 ], async (req, res) => {
   
-  // Permission check: Only the user themselves or 'nicovece' (admin) can update the profile
-  if (req.user.Username !== req.params.Username && req.user.Username !== 'nicovece') {
+  // Permission check: Only the user themselves or the admin can update the profile
+  if (req.user.Username !== req.params.Username && req.user.Username !== ADMIN_USERNAME) {
     return res.status(400).send('Permission denied');
   }
   
@@ -564,8 +584,8 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false}), [
  */
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false}), async (req, res) => {
   const { Username, MovieID } = req.params;
-  // Check if same user as logged in or is Nico
-  if (req.user.Username !== Username && req.user.Username !== 'nicovece') {
+  // Check if same user as logged in or is admin
+  if (req.user.Username !== Username && req.user.Username !== ADMIN_USERNAME) {
     return res.status(400).send('Permission denied');
   }
   try {
@@ -621,8 +641,8 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
  */
 app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false}), async (req, res) => {
   const { Username, MovieID } = req.params;
-  // Check if same user as logged in or is Nico
-  if (req.user.Username !== Username && req.user.Username !== 'nicovece') {
+  // Check if same user as logged in or is admin
+  if (req.user.Username !== Username && req.user.Username !== ADMIN_USERNAME) {
     return res.status(400).send('Permission denied');
   }
   try {
@@ -671,8 +691,8 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
  */
 app.delete('/users/:Username', passport.authenticate('jwt', { session: false}), async (req, res) => {
   const { Username } = req.params;
-  // Check if same user as logged in or is Nico
-  if (req.user.Username !== Username && req.user.Username !== 'nicovece') {
+  // Check if same user as logged in or is admin
+  if (req.user.Username !== Username && req.user.Username !== ADMIN_USERNAME) {
     return res.status(400).send('Permission denied');
   }
   try {
