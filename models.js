@@ -21,9 +21,9 @@ let movieSchema = mongoose.Schema({
 
 // User schema defines the structure for user documents in MongoDB.
 let userSchema = mongoose.Schema({
-  Username: {type: String, required: true},
+  Username: {type: String, required: true, unique: true},
   Password: {type: String, required: true},
-  Email: {type: String, required: true},
+  Email: {type: String, required: true, unique: true},
   Birthday: Date,
   // FavoriteMovies is an array of ObjectIds that reference Movie documents.
   // This allows each user to have a list of favorite movies by storing their IDs.
