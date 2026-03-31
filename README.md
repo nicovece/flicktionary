@@ -2,6 +2,8 @@
 
 A dictionary for flicks
 
+https://flicktionary.onrender.com/
+
 ## API Documentation
 
 ### Description
@@ -277,6 +279,4 @@ The API may return the following error responses:
 - **422 Unprocessable Entity**: Validation errors
 - **500 Internal Server Error**: Server-side errors
 
-### Footer
-
-F L I C K T I O N A R Y - © {current year}
+F L I C K T I O N A R Y - 2026
